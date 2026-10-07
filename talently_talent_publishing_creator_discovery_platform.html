@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="te" class="h-full bg-slate-900 text-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALENTLY - Talent Publishing & Creator Discovery Platform</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Telugu:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans Telugu', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f3ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            gold: '#f59e0b',
+                            cinema: '#ec4899',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-border {
+            background: linear-gradient(135deg, #6366f1, #ec4899, #f59e0b);
+            padding: 1px;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col font-sans bg-slate-950 text-slate-100 antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Top Navigation Header -->
+    <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('feed')">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-pink-500 to-amber-400 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                    <i class="fa-solid font-bold text-white text-xl">T</i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-slate-100 to-indigo-300 bg-clip-text text-transparent">TALENTLY</span>
+                        <span class="text-[10px] bg-indigo-500/20 text-indigo-300 font-semibold px-2 py-0.5 rounded-full border border-indigo-500/30">unseen talent</span>
+                    </div>
+                    <p class="text-[11px] text-slate-400 hidden sm:block">మీ Talent... ప్రపంచానికి చూపించండి</p>
+                </div>
+            </div>
+
+            <!-- Primary Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                <button onclick="switchTab('feed')" id="nav-feed" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition text-indigo-400 bg-slate-800/80">
+                    <i class="fa-solid fa-compass mr-1.5"></i> Discover
+                </button>
+                <button onclick="switchTab('cinema')" id="nav-cinema" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-film text-pink-400 mr-1.5"></i> Cinema Hub
+                </button>
+                <button onclick="switchTab('voice')" id="nav-voice" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-microphone text-amber-400 mr-1.5"></i> Voice Stories
+                </button>
+                <button onclick="switchTab('create')" id="nav-create" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-bold bg-gradient-to-r from-indigo-600 to-pink-600 text-white shadow-md hover:opacity-95 transition">
+                    <i class="fa-solid fa-plus-circle mr-1.5"></i> Publish Talent
+                </button>
+            </nav>
+
+            <!-- User Balance & Profile -->
+            <div class="flex items-center space-x-3">
+                <!-- Coin Balance Pill -->
+                <button onclick="openCoinModal()" class="flex items-center space-x-1.5 bg-amber-500/10 border border-amber-500/30 text-amber-300 px-3 py-1.5 rounded-full hover:bg-amber-500/20 transition">
+                    <i class="fa-solid fa-coins text-amber-400"></i>
+                    <span id="user-coins-display" class="text-sm font-bold">250</span>
+                    <span class="text-[10px] bg-amber-500/30 px-1.5 py-0.2 rounded font-medium text-amber-200">Coins</span>
+                </button>
+
+                <!-- Opportunity Inquiries Alert -->
+                <button onclick="openOpportunitiesModal()" class="relative p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition" title="Film & Publishing Inquiries">
+                    <i class="fa-solid fa-briefcase text-emerald-400 text-lg"></i>
+                    <span id="inquiry-badge" class="absolute top-1 right-1 flex h-2.5 w-2.5">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                    </span>
+                </button>
+
+                <!-- Profile Switcher -->
+                <button onclick="switchTab('profile')" class="flex items-center space-x-2 border border-slate-700 p-1.5 rounded-xl hover:border-slate-500 transition">
+                    <img id="header-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120" alt="Avatar" class="w-7 h-7 rounded-lg object-cover">
+                    <span class="text-xs font-semibold text-slate-200 hidden lg:inline">Ravi Varma</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Bottom Nav Bar -->
+        <div class="md:hidden flex justify-around bg-slate-900 border-t border-slate-800 py-2">
+            <button onclick="switchTab('feed')" class="flex flex-col items-center text-xs text-indigo-400">
+                <i class="fa-solid fa-compass text-base mb-0.5"></i> Discover
+            </button>
+            <button onclick="switchTab('cinema')" class="flex flex-col items-center text-xs text-slate-400">
+                <i class="fa-solid fa-film text-base text-pink-400 mb-0.5"></i> Cinema
+            </button>
+            <button onclick="switchTab('create')" class="flex flex-col items-center text-xs text-pink-400 font-bold">
+                <i class="fa-solid fa-circle-plus text-lg mb-0.5"></i> Publish
+            </button>
+            <button onclick="switchTab('voice')" class="flex flex-col items-center text-xs text-slate-400">
+                <i class="fa-solid fa-microphone text-base text-amber-400 mb-0.5"></i> Voice
+            </button>
+            <button onclick="switchTab('profile')" class="flex flex-col items-center text-xs text-slate-400">
+                <i class="fa-solid fa-user text-base mb-0.5"></i> Profile
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 custom-scrollbar overflow-y-auto">
+
+        <!-- Banner Announcement -->
+        <div class="mb-6 rounded-2xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-indigo-500/30 p-4 sm:p-6 relative overflow-hidden shadow-2xl">
+            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-pink-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div class="space-y-1 max-w-2xl">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-bold text-xs px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                            🎬 Talent to Opportunity Platform
+                        </span>
+                        <span class="text-xs text-slate-400 hidden sm:inline">• Direct Film Producer & Publisher Connect</span>
+                    </div>
+                    <h1 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+                        మీ దాగివున్న Talentని సగర్వంగా ప్రదర్శించండి!
+                    </h1>
+                    <p class="text-xs sm:text-sm text-slate-300">
+                        Stories, Movie Scripts, Dialogues, Song Lyrics, Voice Audios & Real Experiences — Publish your creations, earn coins/subscriptions, and get discovered by industry filmmakers!
+                    </p>
+                </div>
+                <div class="flex items-center gap-3 w-full md:w-auto">
+                    <button onclick="switchTab('create')" class="flex-1 md:flex-none px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 transition text-center">
+                        <i class="fa-solid fa-pen-nib mr-1.5"></i> Start Publishing Now
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= TAB 1: DISCOVER / FEED ================= -->
+        <section id="tab-feed" class="tab-content block space-y-6">
+            
+            <!-- Category Selector Pills -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-2 custom-scrollbar">
+                <button onclick="filterCategory('all')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-indigo-600 text-white shadow-md whitespace-nowrap" data-cat="all">
+                    🔥 All Talents
+                </button>
+                <button onclick="filterCategory('cinema')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition whitespace-nowrap" data-cat="cinema">
+                    🎬 Cinema Scripts & Pitches
+                </button>
+                <button onclick="filterCategory('voice')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition whitespace-nowrap" data-cat="voice">
+                    🎙️ Voice Stories & Audio
+                </button>
+                <button onclick="filterCategory('stories')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition whitespace-nowrap" data-cat="stories">
+                    ✍️ Novels & Short Stories
+                </button>
+                <button onclick="filterCategory('music')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition whitespace-nowrap" data-cat="music">
+                    🎵 Music Lyrics & Tunes
+                </button>
+                <button onclick="filterCategory('knowledge')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition whitespace-nowrap" data-cat="knowledge">
+                    📚 Practical Knowledge & Tips
+                </button>
+            </div>
+
+            <!-- Feed Content Layout (Grid) -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Main Feed (2 Columns on large screen) -->
+                <div class="lg:col-span-2 space-y-6" id="feed-container">
+                    <!-- Cards will be dynamically rendered via JS -->
+                </div>
+
+                <!-- Sidebar: Trending Creators & Industry Opportunities -->
+                <div class="space-y-6">
+                    <!-- Industry Producer Pitch Desk Widget -->
+                    <div class="bg-gradient-to-b from-indigo-950/80 to-slate-900 border border-emerald-500/30 rounded-2xl p-5 shadow-xl">
+                        <div class="flex items-center space-x-2 text-emerald-400 font-bold text-sm mb-2">
+                            <i class="fa-solid fa-clapperboard text-base"></i>
+                            <span>Opportunity Radar</span>
+                        </div>
+                        <h3 class="text-base font-extrabold text-white mb-2">Are you a Director or Producer?</h3>
+                        <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+                            Discover unreleased Telugu stories, cinematic concepts & lyrics directly from creators. Click <strong>"Request Opportunity"</strong> on any card to contact creators directly.
+                        </p>
+                        <div class="bg-slate-900/80 rounded-xl p-3 border border-slate-800 text-xs space-y-2">
+                            <div class="flex justify-between items-center text-slate-300">
+                                <span><i class="fa-solid fa-check-circle text-emerald-400 mr-1"></i> Option Rights</span>
+                                <span class="text-slate-400">Available</span>
+                            </div>
+                            <div class="flex justify-between items-center text-slate-300">
+                                <span><i class="fa-solid fa-shield-halved text-indigo-400 mr-1"></i> Copyright Protection</span>
+                                <span class="text-slate-400">Verified</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rising Creators Section -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-sm text-white flex items-center gap-2">
+                                <i class="fa-solid fa-fire text-amber-400"></i> Rising Creators
+                            </h3>
+                            <span class="text-xs text-indigo-400 cursor-pointer hover:underline">View Top 50</span>
+                        </div>
+
+                        <div class="space-y-3" id="rising-creators-list">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Monetization Stats Preview -->
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-3">
+                        <h3 class="font-bold text-sm text-white flex items-center gap-2">
+                            <i class="fa-solid fa-sack-dollar text-emerald-400"></i> Monetization Models
+                        </h3>
+                        <div class="space-y-2 text-xs text-slate-300">
+                            <div class="p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/50 flex items-center justify-between">
+                                <div>
+                                    <div class="font-semibold text-white">💰 Coin Tipping & Gifts</div>
+                                    <div class="text-[11px] text-slate-400">Readers send coins for support</div>
+                                </div>
+                                <span class="text-amber-400 font-bold">100 Coins = ₹49</span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/50 flex items-center justify-between">
+                                <div>
+                                    <div class="font-semibold text-white">🔒 Premium Chapter Unlock</div>
+                                    <div class="text-[11px] text-slate-400">Part 1 Free, Part 2 Costs Coins</div>
+                                </div>
+                                <span class="text-indigo-400 font-bold">Pay-per-read</span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/50 flex items-center justify-between">
+                                <div>
+                                    <div class="font-semibold text-white">⭐ Fan Subscriptions</div>
+                                    <div class="text-[11px] text-slate-400">Recurring support from super fans</div>
+                                </div>
+                                <span class="text-pink-400 font-bold">₹49/month</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 2: CINEMA HUB ================= -->
+        <section id="tab-cinema" class="tab-content hidden space-y-6">
+            <div class="bg-gradient-to-r from-pink-950/40 via-slate-900 to-indigo-950/40 border border-pink-500/30 rounded-2xl p-6 shadow-2xl">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <span class="px-2.5 py-0.5 bg-pink-500/20 text-pink-300 text-xs font-bold rounded-full uppercase">🎬 Cinema Talent Pitch Desk</span>
+                        <h2 class="text-2xl font-extrabold text-white mt-1">సినిమా కథలు, స్క్రీన్ ప్లే & డైలాగ్స్</h2>
+                        <p class="text-xs sm:text-sm text-slate-300 mt-1">
+                            Pitch complete movie outlines, villain characters, comedy scenes, and web-series pitch decks directly to creators & directors.
+                        </p>
+                    </div>
+                    <button onclick="openCinemaPitchModal()" class="px-5 py-2.5 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-sm shadow-lg shadow-pink-600/30 transition">
+                        <i class="fa-solid fa-clapperboard mr-1.5"></i> Submit Cinema Pitch
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cinema Pitch Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="cinema-container">
+                <!-- Cinema pitches render here -->
+            </div>
+        </section>
+
+        <!-- ================= TAB 3: VOICE STORIES HUB ================= -->
+        <section id="tab-voice" class="tab-content hidden space-y-6">
+            <div class="bg-gradient-to-r from-amber-950/40 via-slate-900 to-slate-900 border border-amber-500/30 rounded-2xl p-6 shadow-2xl">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <span class="px-2.5 py-0.5 bg-amber-500/20 text-amber-300 text-xs font-bold rounded-full uppercase">🎙️ Voice Studio & Audio Stories</span>
+                        <h2 class="text-2xl font-extrabold text-white mt-1">టైప్ చేయడం రాకపోయినా… మాట్లాడి కథలు చెప్పండి!</h2>
+                        <p class="text-xs sm:text-sm text-slate-300 mt-1">
+                            Record 10-minute audio stories, movie narrations, or folk tunes directly from your browser microphone with Gemini AI script auto-transcription!
+                        </p>
+                    </div>
+                    <button onclick="switchTab('create'); switchStudioTab('voice-tab');" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-sm shadow-lg shadow-amber-500/20 transition">
+                        <i class="fa-solid fa-microphone-lines mr-1.5"></i> Open Voice Studio
+                    </button>
+                </div>
+            </div>
+
+            <!-- Voice Stories Feed Container -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="voice-container">
+                <!-- Dynamic voice story cards render here -->
+            </div>
+        </section>
+
+        <!-- ================= TAB 4: PUBLISH CREATOR STUDIO ================= -->
+        <section id="tab-create" class="tab-content hidden space-y-6">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl max-w-4xl mx-auto">
+                <div class="border-b border-slate-800 pb-4 mb-6">
+                    <h2 class="text-2xl font-black text-white flex items-center gap-2">
+                        <i class="fa-solid fa-feather-pointed text-indigo-400"></i> Publishing Studio
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-400 mt-1">
+                        మీ ప్రతిభను ప్రపంచానికి చూపించండి. Select content type to start creation:
+                    </p>
+                </div>
+
+                <!-- Content Type Selector Tabs -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6">
+                    <button onclick="switchStudioTab('text-tab')" id="btn-text-tab" class="studio-tab-btn py-3 px-3 rounded-xl border border-indigo-500 bg-indigo-600/20 text-indigo-300 font-bold text-xs sm:text-sm text-center flex flex-col items-center gap-1 transition">
+                        <i class="fa-solid fa-align-left text-lg"></i>
+                        <span>✍️ Text Story / Script</span>
+                    </button>
+                    <button onclick="switchStudioTab('voice-tab')" id="btn-voice-tab" class="studio-tab-btn py-3 px-3 rounded-xl border border-slate-800 bg-slate-800/50 text-slate-400 font-semibold text-xs sm:text-sm text-center flex flex-col items-center gap-1 transition hover:border-slate-700">
+                        <i class="fa-solid fa-microphone text-lg text-amber-400"></i>
+                        <span>🎙️ Voice Studio</span>
+                    </button>
+                    <button onclick="switchStudioTab('cinema-tab')" id="btn-cinema-tab" class="studio-tab-btn py-3 px-3 rounded-xl border border-slate-800 bg-slate-800/50 text-slate-400 font-semibold text-xs sm:text-sm text-center flex flex-col items-center gap-1 transition hover:border-slate-700">
+                        <i class="fa-solid fa-film text-lg text-pink-400"></i>
+                        <span>🎬 Cinema Pitch Deck</span>
+                    </button>
+                    <button onclick="switchStudioTab('music-tab')" id="btn-music-tab" class="studio-tab-btn py-3 px-3 rounded-xl border border-slate-800 bg-slate-800/50 text-slate-400 font-semibold text-xs sm:text-sm text-center flex flex-col items-center gap-1 transition hover:border-slate-700">
+                        <i class="fa-solid fa-music text-lg text-purple-400"></i>
+                        <span>🎵 Lyrics & Music</span>
+                    </button>
+                </div>
+
+                <!-- Form: Text & Story Publishing -->
+                <div id="studio-text-tab" class="studio-form-content space-y-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Content Title *</label>
+                            <input type="text" id="post-title" placeholder="ఉదా: విక్రమార్కుని చివరి ప్రయాణం" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Category *</label>
+                            <select id="post-category" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+                                <option value="stories">📝 Short Story / Novel</option>
+                                <option value="cinema">🎬 Movie Script / Screenplay</option>
+                                <option value="knowledge">📚 Practical Knowledge / Experience</option>
+                                <option value="comedy">😂 Comedy Concept / Parody</option>
+                                <option value="motivation">❤️ Motivation & Life Lessons</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <label class="block text-xs font-bold uppercase text-slate-400">Content / Script Body *</label>
+                            <!-- Gemini AI Assistant Button -->
+                            <button onclick="enhanceContentWithGemini()" type="button" class="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1 bg-indigo-500/10 px-2.5 py-1 rounded-lg border border-indigo-500/30">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Spark Gemini AI Pitch Refiner
+                            </button>
+                        </div>
+                        <textarea id="post-content" rows="8" placeholder="మీ కథ లేదా ఐడియాను ఇక్కడ రాయండి..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-sm text-slate-200 focus:outline-none focus:border-indigo-500 leading-relaxed custom-scrollbar"></textarea>
+                    </div>
+
+                    <!-- Monetization Setting -->
+                    <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+                        <div>
+                            <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                                <i class="fa-solid fa-lock text-amber-400"></i> Premium Coin Lock (Monetization)
+                            </div>
+                            <div class="text-[11px] text-slate-400">Require 10 Coins to unlock Part 2 of this story</div>
+                        </div>
+                        <input type="checkbox" id="post-is-premium" class="w-5 h-5 accent-indigo-600 rounded cursor-pointer">
+                    </div>
+                </div>
+
+                <!-- Form: Voice Audio Studio -->
+                <div id="studio-voice-tab" class="studio-form-content hidden space-y-5">
+                    <div class="bg-slate-950 border border-amber-500/20 p-6 rounded-2xl text-center space-y-4">
+                        <div id="recording-status" class="text-xs font-semibold text-amber-400 uppercase tracking-wider">
+                            Ready to record audio story
+                        </div>
+
+                        <!-- Waveform Graphic Canvas / Visualizer -->
+                        <div class="h-16 bg-slate-900 rounded-xl flex items-center justify-center overflow-hidden border border-slate-800">
+                            <canvas id="audio-waveform-canvas" class="w-full h-full"></canvas>
+                        </div>
+
+                        <!-- Record Controls -->
+                        <div class="flex justify-center items-center gap-4">
+                            <button id="btn-start-record" onclick="startRecording()" class="w-14 h-14 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 flex items-center justify-center text-xl shadow-lg transition">
+                                <i class="fa-solid fa-microphone"></i>
+                            </button>
+                            <button id="btn-stop-record" onclick="stopRecording()" disabled class="w-12 h-12 rounded-full bg-slate-800 text-slate-500 flex items-center justify-center text-lg transition">
+                                <i class="fa-solid fa-stop"></i>
+                            </button>
+                        </div>
+                        <p class="text-xs text-slate-400">Click mic to record up to 10 minutes story narration.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Voice Story Title *</label>
+                            <input type="text" id="voice-title" placeholder="ఉదా: నా జీవితంలో జరిగిన ఒక విచిత్ర సంఘటన" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Speaker Tag</label>
+                            <input type="text" id="voice-tag" placeholder="e.g. Cinema Story Pitch / Real Experience" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <label class="block text-xs font-bold uppercase text-slate-400">Story Text / AI Transcription Summary</label>
+                            <button onclick="autoTranscribeWithGemini()" type="button" class="text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1">
+                                <i class="fa-solid fa-file-audio"></i> ✨ Gemini Auto Transcribe
+                            </button>
+                        </div>
+                        <textarea id="voice-summary" rows="3" placeholder="ఆడియో గురించి చిన్న సమ్మరీ లేదా ట్రాన్స్ క్రిప్షన్..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-amber-500"></textarea>
+                    </div>
+                </div>
+
+                <!-- Form: Cinema Pitch Deck -->
+                <div id="studio-cinema-tab" class="studio-form-content hidden space-y-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Movie / Script Title *</label>
+                            <input type="text" id="cinema-title" placeholder="ఉదా: ది లాస్ట్ ఫిలిగ్రిమ్ (The Last Pilgrim)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-pink-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Genre & Format</label>
+                            <select id="cinema-genre" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-pink-500">
+                                <option value="Action Thriller">🎬 Action Thriller</option>
+                                <option value="Romantic Drama">❤️ Romantic Drama</option>
+                                <option value="Sci-Fi Fantasy">🚀 Sci-Fi / Fantasy</option>
+                                <option value="Horror Mystery">👻 Horror / Crime Thriller</option>
+                                <option value="Web Series Concept">📺 Web Series Concept</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Hero Character Sketch</label>
+                            <input type="text" id="cinema-hero" placeholder="Hero: విక్రమ్ (An honest undercover agent)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Villain / Core Conflict</label>
+                            <input type="text" id="cinema-villain" placeholder="Villain: భైరవ (High-tech cyber criminal)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Logline & Movie Synopsis *</label>
+                        <textarea id="cinema-synopsis" rows="4" placeholder="సినిమా ప్రధాన కథాంశం (Synopsis) మరియు హైలైట్ సన్నివేశాలు రాయండి..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-pink-500"></textarea>
+                    </div>
+                </div>
+
+                <!-- Form: Music & Lyrics -->
+                <div id="studio-music-tab" class="studio-form-content hidden space-y-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Song / Tune Title *</label>
+                            <input type="text" id="music-title" placeholder="ఉదా: మలయ మారుతంలో నీ పిలుపు" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Music Type</label>
+                            <select id="music-type" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none">
+                                <option value="Song Lyrics">🎼 Song Lyrics</option>
+                                <option value="Rap / Folk Song">🎤 Rap / Folk Song</option>
+                                <option value="Melody Tune">🎵 Tune Composition Idea</option>
+                                <option value="Devotional Lyric">🙏 Devotional Lyric</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Lyrics & Composition Structure</label>
+                        <textarea id="music-lyrics" rows="6" placeholder="పల్లవి:&#10;చరణం 1:&#10;చరణం 2:..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 font-mono"></textarea>
+                    </div>
+                </div>
+
+                <!-- Copyright Protection Ownership Checkbox & Action Button -->
+                <div class="pt-4 border-t border-slate-800 space-y-4">
+                    <div class="p-3.5 rounded-xl bg-slate-950 border border-indigo-500/20 text-xs text-slate-300 flex items-start gap-3">
+                        <i class="fa-solid fa-shield-halved text-indigo-400 text-lg mt-0.5"></i>
+                        <div>
+                            <span class="font-bold text-white block">Digital Copyright & Timestamp Certificate Guarantee</span>
+                            By publishing on Talently, a unique cryptographic digital token (TAL-2026-XXXX) will be registered under your name. All intellectual property remains 100% yours.
+                        </div>
+                    </div>
+
+                    <button onclick="publishContent()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 via-pink-600 to-amber-500 text-white font-extrabold text-base shadow-xl hover:opacity-95 transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Publish My Original Talent Now
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 5: CREATOR PROFILE & PORTFOLIO ================= -->
+        <section id="tab-profile" class="tab-content hidden space-y-6">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+                <div class="flex flex-col sm:flex-row items-center gap-5">
+                    <img id="profile-page-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200" alt="Avatar" class="w-24 h-24 rounded-2xl object-cover border-2 border-indigo-500 shadow-xl">
+                    <div class="text-center sm:text-left space-y-1">
+                        <div class="flex items-center justify-center sm:justify-start gap-2">
+                            <h2 class="text-2xl font-black text-white">Ravi Varma</h2>
+                            <span class="bg-indigo-500/20 text-indigo-300 text-xs px-2 py-0.5 rounded-full font-bold border border-indigo-500/30">Verified Creator</span>
+                        </div>
+                        <p class="text-xs text-slate-400">Movie Writer & Voice Story Creator • Tirupati, Andhra Pradesh</p>
+                        <p class="text-xs text-slate-300 pt-1">"సినిమా కథలు మరియు సస్పెంస్ థ్రిల్లర్ రచనలు నా ప్రాణం."</p>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-slate-800 text-center">
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                        <div class="text-xl font-extrabold text-indigo-400">14.2K</div>
+                        <div class="text-[11px] text-slate-400 uppercase font-semibold">Total Reads</div>
+                    </div>
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                        <div class="text-xl font-extrabold text-amber-400">1,850</div>
+                        <div class="text-[11px] text-slate-400 uppercase font-semibold">Coins Earned</div>
+                    </div>
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                        <div class="text-xl font-extrabold text-pink-400">128</div>
+                        <div class="text-[11px] text-slate-400 uppercase font-semibold">Subscribers</div>
+                    </div>
+                    <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                        <div class="text-xl font-extrabold text-emerald-400">3</div>
+                        <div class="text-[11px] text-slate-400 uppercase font-semibold">Film Inquiries</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Published Portfolio Tabs -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-folder-open text-indigo-400"></i> Published Works Portfolio
+                </h3>
+                <div class="space-y-4" id="user-portfolio-container">
+                    <!-- User published creations list here -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL 1: COIN STORE & MONETIZATION -->
+    <div id="coin-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-amber-500/30 rounded-2xl max-w-md w-full p-6 space-y-5 shadow-2xl relative">
+            <button onclick="closeCoinModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="text-center space-y-1">
+                <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center text-2xl mx-auto">
+                    <i class="fa-solid fa-coins"></i>
+                </div>
+                <h3 class="text-xl font-extrabold text-white">Talently Coin Store</h3>
+                <p class="text-xs text-slate-300">Support favorite creators, send gifts & unlock premium stories.</p>
+            </div>
+
+            <div class="space-y-3">
+                <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between hover:border-amber-500/50 cursor-pointer transition" onclick="buyCoins(100, 49)">
+                    <div class="flex items-center gap-3">
+                        <span class="text-amber-400 font-bold text-lg"><i class="fa-solid fa-coins"></i> 100 Coins</span>
+                    </div>
+                    <span class="px-3 py-1 bg-amber-500 text-slate-950 font-bold text-xs rounded-lg">₹49</span>
+                </div>
+                <div class="p-3.5 rounded-xl bg-slate-950 border border-amber-500/40 flex items-center justify-between hover:border-amber-500 cursor-pointer transition relative overflow-hidden" onclick="buyCoins(300, 129)">
+                    <span class="absolute top-0 right-0 bg-amber-500 text-slate-950 font-bold text-[9px] px-2 py-0.5 rounded-bl">POPULAR</span>
+                    <div class="flex items-center gap-3">
+                        <span class="text-amber-400 font-bold text-lg"><i class="fa-solid fa-coins"></i> 300 Coins</span>
+                    </div>
+                    <span class="px-3 py-1 bg-amber-500 text-slate-950 font-bold text-xs rounded-lg">₹129</span>
+                </div>
+                <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between hover:border-amber-500/50 cursor-pointer transition" onclick="buyCoins(1000, 399)">
+                    <div class="flex items-center gap-3">
+                        <span class="text-amber-400 font-bold text-lg"><i class="fa-solid fa-coins"></i> 1000 Coins</span>
+                    </div>
+                    <span class="px-3 py-1 bg-amber-500 text-slate-950 font-bold text-xs rounded-lg">₹399</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: TALENT TO OPPORTUNITY CONTACT PITCH -->
+    <div id="opportunity-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-emerald-500/40 rounded-2xl max-w-lg w-full p-6 space-y-5 shadow-2xl relative">
+            <button onclick="closeOpportunityModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-handshake"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-extrabold text-white">Talent to Opportunity Connect</h3>
+                    <p class="text-xs text-slate-400">Initiate Film, OTT or Publishing rights request with creator.</p>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Your Industry Role *</label>
+                    <select id="opp-role" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-sm text-white">
+                        <option>🎬 Film Director / Assistant Director</option>
+                        <option>🎥 Film Producer / Production House</option>
+                        <option>🎵 Music Director / Label Representative</option>
+                        <option>📚 Book / Story Publisher</option>
+                        <option>🎙️ Voice Artist / Audio Show Creator</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Company / Studio Name</label>
+                    <input type="text" id="opp-studio" placeholder="e.g. Mythri Movie Makers / Independent Short Film" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-sm text-white">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Proposal Message to Creator</label>
+                    <textarea id="opp-message" rows="3" placeholder="నమస్తే! మీ కథ నచ్చింది. దీనిపై చర్చించడానికి ఫోన్ కాల్ మాట్లాడగలరా?..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200"></textarea>
+                </div>
+            </div>
+
+            <button onclick="sendOpportunityInquiry()" class="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-sm shadow-lg transition">
+                <i class="fa-solid fa-paper-plane mr-1.5"></i> Send Formal Industry Inquiry
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL 3: OPPORTUNITY INBOX / INQUIRIES DISPLAY -->
+    <div id="inquiries-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-xl w-full p-6 space-y-4 shadow-2xl relative">
+            <button onclick="closeInquiriesModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <h3 class="text-xl font-extrabold text-white flex items-center gap-2">
+                <i class="fa-solid fa-briefcase text-emerald-400"></i> Received Industry Inquiries
+            </h3>
+
+            <div class="space-y-3" id="inquiries-list">
+                <!-- Dynamic inquiries rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Global App State Data
+        let appState = {
+            userCoins: 250,
+            activeTab: 'feed',
+            activeCategory: 'all',
+            posts: [],
+            inquiries: [],
+            mediaRecorder: null,
+            audioChunks: [],
+            recordedAudioUrl: null
+        };
+
+        // Initial Seed Data for Platform Discovery
+        const SEED_POSTS = [
+            {
+                id: 'TAL-2026-101',
+                author: 'Kalyan Kumar',
+                avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120',
+                title: 'ది లాస్ట్ మిషన్ (The Last Mission) - Spy Thriller Screenplay',
+                category: 'cinema',
+                categoryLabel: '🎬 Movie Script',
+                content: 'కథాంశం: హైదరాబాద్ ఐఐటి సైంటిస్ట్ రూపొందించిన క్వాంటం చిప్ హ్యాక్ అయినప్పుడు, ఒక అన్‌అఫీషియల్ రా ఏజెంట్ దాన్ని రికవర్ చేయడానికి చేసే 48 గంటల యాక్షన్ థ్రిల్లర్ పయనం...',
+                likes: 142,
+                coinsEarned: 320,
+                isPremium: true,
+                isUnlocked: false,
+                hasVoice: false,
+                opportunityCount: 2,
+                timestamp: '2 hours ago'
+            },
+            {
+                id: 'TAL-2026-102',
+                author: 'Anitha Sharma',
+                avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120',
+                title: 'మా ఊరి నల్లమల అడవి విచిత్ర గాధ - 10 Mins Voice Story',
+                category: 'voice',
+                categoryLabel: '🎙️ Voice Story',
+                content: 'నల్లమల గుండెల్లో దాగివున్న పురాతన ఆలయం మరియు అక్కడి గ్రామస్తులు అనుభవించిన ఒక అలౌకిక సంఘటనను నా సొంత స్వరంలో వివరించాను...',
+                likes: 289,
+                coinsEarned: 540,
+                isPremium: false,
+                isUnlocked: true,
+                hasVoice: true,
+                audioDuration: '08:45',
+                opportunityCount: 1,
+                timestamp: '5 hours ago'
+            },
+            {
+                id: 'TAL-2026-103',
+                author: 'Suresh Varma',
+                avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=120',
+                title: '20 ఏళ్ల ఎలక్ట్రీషియన్ అనుభవంతో: గృహ విద్యుత్ సేవింగ్ టిప్స్',
+                category: 'knowledge',
+                categoryLabel: '📚 Experience & Knowledge',
+                content: '1. ఎసి విద్యుత్ వినియోగం 30% తగ్గించే టెంపరేచర్ సెట్టింగ్స్.\n2. పాత కరెంట్ మీటర్ ఇన్వెర్టర్ లీకేజ్ టెస్టింగ్ సులువైన పద్ధతి...',
+                likes: 512,
+                coinsEarned: 120,
+                isPremium: false,
+                isUnlocked: true,
+                hasVoice: false,
+                opportunityCount: 0,
+                timestamp: '1 day ago'
+            },
+            {
+                id: 'TAL-2026-104',
+                author: 'Gopi Krishna',
+                avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=120',
+                title: 'మాస్ అండ్ ఫోక్ బీట్ పాట సాహిత్యం: "ఏటూరునాగారం పిల్ల"',
+                category: 'music',
+                categoryLabel: '🎵 Song Lyrics',
+                content: 'పల్లవి:\nఏటూరునాగారం పిల్లరో... నీ కంటి చూపే కత్తిరో!\nఅడవి సీమలో ఉదయించిన సూరీడిలా ఉన్నావే పిల్లరో...\n\nచరణం:\nరాతిరి పూట వెన్నెల వేటాడే బాణమై గుండెల్లో గుచ్చావే...',
+                likes: 198,
+                coinsEarned: 210,
+                isPremium: false,
+                isUnlocked: true,
+                hasVoice: false,
+                opportunityCount: 3,
+                timestamp: '2 days ago'
+            }
+        ];
+
+        // Seed Industry Inquiries
+        const SEED_INQUIRIES = [
+            {
+                id: 1,
+                role: '🎬 Film Director',
+                studio: 'Shine Screens Development Team',
+                message: 'నమస్తే సార్! మీ "ది లాస్ట్ మిషన్" స్క్రిప్ట్ లైన్ చాలా ఫ్రెష్ గా ఉంది. మీ మొబైల్ నెంబర్ తో కాంటాక్ట్ అవ్వగలరా?',
+                date: 'Yesterday'
+            }
+        ];
+
+        // RISING CREATORS LIST
+        const RISING_CREATORS = [
+            { name: 'Kalyan Kumar', role: 'Cinema Writer', followers: '3.4K', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120' },
+            { name: 'Anitha Sharma', role: 'Voice Storyteller', followers: '5.1K', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120' },
+            { name: 'Gopi Krishna', role: 'Lyricist & Composer', followers: '2.8K', avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=120' }
+        ];
+
+        // Initialize App on DOM Load
+        window.addEventListener('DOMContentLoaded', () => {
+            appState.posts = [...SEED_POSTS];
+            appState.inquiries = [...SEED_INQUIRIES];
+            renderFeed();
+            renderCinemaPitches();
+            renderVoiceStories();
+            renderRisingCreators();
+            renderUserProfile();
+        });
+
+        // Tab Navigation Controller
+        function switchTab(tabId) {
+            appState.activeTab = tabId;
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            const target = document.getElementById(`tab-${tabId}`);
+            if (target) target.classList.remove('hidden');
+
+            // Update Header nav styles
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-indigo-400', 'bg-slate-800/80');
+                btn.classList.add('text-slate-300');
+            });
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            if (activeNav) {
+                activeNav.classList.add('text-indigo-400', 'bg-slate-800/80');
+            }
+        }
+
+        // Studio Inner Tab Switcher
+        function switchStudioTab(tabId) {
+            document.querySelectorAll('.studio-form-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`studio-${tabId}`).classList.remove('hidden');
+
+            document.querySelectorAll('.studio-tab-btn').forEach(btn => {
+                btn.classList.remove('border-indigo-500', 'bg-indigo-600/20', 'text-indigo-300');
+                btn.classList.add('border-slate-800', 'bg-slate-800/50', 'text-slate-400');
+            });
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.add('border-indigo-500', 'bg-indigo-600/20', 'text-indigo-300');
+            }
+        }
+
+        // Category Filter
+        function filterCategory(cat) {
+            appState.activeCategory = cat;
+            document.querySelectorAll('.cat-filter-btn').forEach(btn => {
+                if (btn.dataset.cat === cat) {
+                    btn.className = 'cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-indigo-600 text-white shadow-md whitespace-nowrap';
+                } else {
+                    btn.className = 'cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition whitespace-nowrap';
+                }
+            });
+            renderFeed();
+        }
+
+        // Render Main Feed
+        function renderFeed() {
+            const container = document.getElementById('feed-container');
+            container.innerHTML = '';
+
+            const filtered = appState.activeCategory === 'all' 
+                ? appState.posts 
+                : appState.posts.filter(p => p.category === appState.activeCategory);
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 text-center space-y-3">
+                        <i class="fa-solid fa-folder-open text-4xl text-slate-600"></i>
+                        <h4 class="text-white font-bold text-base">ఈ కేటగిరీలో ఇంకా రచనలు లేవు</h4>
+                        <p class="text-xs text-slate-400">మీరు మీ రచనను మొదటగా పబ్లిష్ చేయండి!</p>
+                        <button onclick="switchTab('create')" class="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-xl">Publish Now</button>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(post => {
+                const card = document.createElement('div');
+                card.className = "bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4 hover:border-slate-700 transition";
+
+                card.innerHTML = `
+                    <!-- Card Header -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <img src="${post.avatar}" class="w-10 h-10 rounded-xl object-cover border border-slate-700">
+                            <div>
+                                <h4 class="font-bold text-sm text-white flex items-center gap-1.5">
+                                    ${post.author}
+                                    <i class="fa-solid fa-circle-check text-indigo-400 text-xs"></i>
+                                </h4>
+                                <div class="flex items-center space-x-2 text-[11px] text-slate-400">
+                                    <span>${post.timestamp}</span>
+                                    <span>•</span>
+                                    <span class="text-slate-500 font-mono">ID: ${post.id}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-indigo-300 border border-slate-700">
+                            ${post.categoryLabel}
+                        </span>
+                    </div>
+
+                    <!-- Title & Content -->
+                    <div class="space-y-2">
+                        <h3 class="font-extrabold text-base sm:text-lg text-white hover:text-indigo-300 cursor-pointer transition">
+                            ${post.title}
+                        </h3>
+                        
+                        ${post.hasVoice ? `
+                            <div class="p-3 bg-slate-950 rounded-xl border border-amber-500/30 flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <button onclick="playMockAudio(this)" class="w-9 h-9 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-sm">
+                                        <i class="fa-solid fa-play"></i>
+                                    </button>
+                                    <div>
+                                        <span class="text-xs font-bold text-white block">Listen Voice Narration</span>
+                                        <span class="text-[10px] text-slate-400">Duration: ${post.audioDuration || '05:30'}</span>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-mono">HD Audio</span>
+                            </div>
+                        ` : ''}
+
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed whitespace-pre-line">
+                            ${post.isPremium && !post.isUnlocked ? post.content.substring(0, 100) + '...' : post.content}
+                        </p>
+                    </div>
+
+                    ${post.isPremium && !post.isUnlocked ? `
+                        <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between">
+                            <div class="text-xs text-amber-300">
+                                <span class="font-bold block">🔒 Premium Chapter Locked</span>
+                                <span>Unlock full script for 10 Coins</span>
+                            </div>
+                            <button onclick="unlockStory('${post.id}')" class="px-3.5 py-1.5 bg-amber-500 text-slate-950 text-xs font-extrabold rounded-lg shadow hover:bg-amber-400 transition">
+                                Unlock (10 Coins)
+                            </button>
+                        </div>
+                    ` : ''}
+
+                    <!-- Action Bar -->
+                    <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                        <div class="flex items-center space-x-4">
+                            <button onclick="likePost('${post.id}', this)" class="hover:text-pink-400 flex items-center gap-1 transition">
+                                <i class="fa-regular fa-heart text-sm"></i>
+                                <span>${post.likes}</span>
+                            </button>
+                            <button onclick="sendCoinTip('${post.id}')" class="hover:text-amber-400 flex items-center gap-1 transition text-amber-400/90">
+                                <i class="fa-solid fa-coins text-sm"></i>
+                                <span>Tip Coins</span>
+                            </button>
+                        </div>
+
+                        <!-- Talent to Opportunity Connect Button -->
+                        <button onclick="openOpportunityModal('${post.id}')" class="px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 font-bold hover:bg-emerald-500/20 transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-clapperboard"></i> Request Opportunity
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Render Cinema Pitches Grid
+        function renderCinemaPitches() {
+            const container = document.getElementById('cinema-container');
+            container.innerHTML = '';
+            const cinemaPosts = appState.posts.filter(p => p.category === 'cinema');
+
+            cinemaPosts.forEach(post => {
+                const el = document.createElement('div');
+                el.className = "bg-slate-900 border border-pink-500/20 rounded-2xl p-5 shadow-xl space-y-3 hover:border-pink-500/50 transition";
+                el.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] bg-pink-500/20 text-pink-300 font-bold px-2 py-0.5 rounded">Action Thriller</span>
+                        <span class="text-xs text-slate-400 font-mono">${post.id}</span>
+                    </div>
+                    <h3 class="text-base font-extrabold text-white">${post.title}</h3>
+                    <p class="text-xs text-slate-300 line-clamp-3 leading-relaxed">${post.content}</p>
+                    <div class="pt-3 border-t border-slate-800 flex justify-between items-center">
+                        <span class="text-xs text-slate-400">By ${post.author}</span>
+                        <button onclick="openOpportunityModal('${post.id}')" class="px-3 py-1 bg-pink-600 text-white font-bold text-xs rounded-lg hover:bg-pink-500">
+                            Pitch Rights / Connect
+                        </button>
+                    </div>
+                `;
+                container.appendChild(el);
+            });
+        }
+
+        // Render Voice Stories
+        function renderVoiceStories() {
+            const container = document.getElementById('voice-container');
+            container.innerHTML = '';
+            const voicePosts = appState.posts.filter(p => p.category === 'voice');
+
+            voicePosts.forEach(post => {
+                const el = document.createElement('div');
+                el.className = "bg-slate-900 border border-amber-500/20 rounded-2xl p-5 shadow-xl space-y-3";
+                el.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <button onclick="playMockAudio(this)" class="w-10 h-10 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-base shadow">
+                            <i class="fa-solid fa-play"></i>
+                        </button>
+                        <div>
+                            <h4 class="font-bold text-sm text-white">${post.title}</h4>
+                            <p class="text-xs text-slate-400">Narrator: ${post.author} • ${post.audioDuration || '06:12'}</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">${post.content}</p>
+                `;
+                container.appendChild(el);
+            });
+        }
+
+        // Render Rising Creators Sidebar
+        function renderRisingCreators() {
+            const container = document.getElementById('rising-creators-list');
+            container.innerHTML = RISING_CREATORS.map(c => `
+                <div class="flex items-center justify-between p-2 rounded-xl hover:bg-slate-800/50 transition">
+                    <div class="flex items-center space-x-3">
+                        <img src="${c.avatar}" class="w-9 h-9 rounded-xl object-cover">
+                        <div>
+                            <h4 class="text-xs font-bold text-white">${c.name}</h4>
+                            <p class="text-[10px] text-slate-400">${c.role}</p>
+                        </div>
+                    </div>
+                    <button class="px-2.5 py-1 bg-indigo-600/20 text-indigo-300 text-[11px] font-bold rounded-lg border border-indigo-500/30 hover:bg-indigo-600 hover:text-white transition">
+                        Follow
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Render User Profile Page Works
+        function renderUserProfile() {
+            const container = document.getElementById('user-portfolio-container');
+            const myWorks = appState.posts.filter(p => p.author === 'Ravi Varma' || p.isUserCreated);
+            
+            if (myWorks.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400">మీరు ఇంకా ఏ రచనలు పబ్లిష్ చేయలేదు.</p>`;
+                return;
+            }
+
+            container.innerHTML = myWorks.map(w => `
+                <div class="p-4 bg-slate-900 border border-slate-800 rounded-xl space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-mono text-indigo-400">${w.id}</span>
+                        <span class="text-xs bg-slate-800 px-2 py-0.5 rounded text-slate-300">${w.categoryLabel}</span>
+                    </div>
+                    <h4 class="font-bold text-white text-sm">${w.title}</h4>
+                    <p class="text-xs text-slate-300 line-clamp-2">${w.content}</p>
+                </div>
+            `).join('');
+        }
+
+        // Audio Recorder Simulation & Real Web Audio Visualizer
+        function startRecording() {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                alertModal("Microphone access is not supported in your browser context.");
+                return;
+            }
+
+            navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+                appState.mediaRecorder = new MediaRecorder(stream);
+                appState.audioChunks = [];
+
+                appState.mediaRecorder.ondataavailable = e => {
+                    appState.audioChunks.push(e.data);
+                };
+
+                appState.mediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(appState.audioChunks, { type: 'audio/mp3' });
+                    appState.recordedAudioUrl = URL.createObjectURL(audioBlob);
+                    document.getElementById('recording-status').innerText = "Recording Complete! Sample saved.";
+                };
+
+                appState.mediaRecorder.start();
+                document.getElementById('btn-start-record').classList.add('animate-pulse', 'bg-red-500');
+                document.getElementById('btn-stop-record').disabled = false;
+                document.getElementById('btn-stop-record').classList.remove('text-slate-500');
+                document.getElementById('btn-stop-record').classList.add('bg-red-600', 'text-white');
+                document.getElementById('recording-status').innerText = "🔴 Live Recording... Speak your story!";
+
+                // Draw Waveform Animation
+                visualizeWaveform(stream);
+            }).catch(err => {
+                document.getElementById('recording-status').innerText = "Microphone access denied. (Using demo recorder)";
+            });
+        }
+
+        function stopRecording() {
+            if (appState.mediaRecorder && appState.mediaRecorder.state !== 'inactive') {
+                appState.mediaRecorder.stop();
+            }
+            document.getElementById('btn-start-record').classList.remove('animate-pulse', 'bg-red-500');
+            document.getElementById('btn-stop-record').disabled = true;
+        }
+
+        function visualizeWaveform(stream) {
+            const canvas = document.getElementById('audio-waveform-canvas');
+            const ctx = canvas.getContext('2d');
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const source = audioCtx.createMediaStreamSource(stream);
+            const analyser = audioCtx.createAnalyser();
+            analyser.fftSize = 64;
+            source.connect(analyser);
+
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+
+            function draw() {
+                requestAnimationFrame(draw);
+                analyser.getByteFrequencyData(dataArray);
+
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                const barWidth = (canvas.width / bufferLength) * 2.5;
+                let x = 0;
+
+                for (let i = 0; i < bufferLength; i++) {
+                    const barHeight = dataArray[i] / 4;
+                    ctx.fillStyle = '#f59e0b';
+                    ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+                    x += barWidth + 2;
+                }
+            }
+            draw();
+        }
+
+        // Gemini API Text Enhancer Integration
+        async function enhanceContentWithGemini() {
+            const contentInput = document.getElementById('post-content');
+            const titleInput = document.getElementById('post-title');
+            const currentText = contentInput.value.trim();
+
+            if (!currentText) {
+                alertModal("దయచేసి మీ ఐడియాను ముందుగా కొన్ని వాక్యాలలో రాయండి!");
+                return;
+            }
+
+            contentInput.value = "✨ Gemini AI refinement in progress...";
+
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            const systemPrompt = "You are a professional Telugu film screenplay editor and story polisher. Enhance the user input into a compelling Telugu script snippet with clear Logline, Main Scenes, and Emotional Hook.";
+            const userQuery = `Please refine and structure this raw Telugu story/idea into a polished version:\n\nTitle Concept: ${titleInput.value}\nContent: ${currentText}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: userQuery }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] }
+                    })
+                });
+
+                const data = await response.json();
+                const resultText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                if (resultText) {
+                    contentInput.value = resultText;
+                } else {
+                    fallbackEnhance(currentText);
+                }
+            } catch (err) {
+                fallbackEnhance(currentText);
+            }
+        }
+
+        function fallbackEnhance(text) {
+            const contentInput = document.getElementById('post-content');
+            contentInput.value = `🎬 [AI Polished Telugu Script Outline]\n\nకథంశం (Logline):\n${text}\n\nముఖ్య ఘట్టాలు:\n- సన్నివేశం 1: పాత్రల పరిచయం మరియు సంఘర్షణ ప్రారంభం.\n- పతాక సన్నివేశం: ఊహించని ట్విస్ట్ మరియు ముగింపు.`;
+        }
+
+        async function autoTranscribeWithGemini() {
+            const summaryBox = document.getElementById('voice-summary');
+            summaryBox.value = "✨ Transcribing recorded voice audio into Telugu script text...";
+
+            setTimeout(() => {
+                summaryBox.value = "రాత్రి 10 గంటల సమయం... వర్షం కురుస్తున్న వేళ రాయలసీమ రహదారిపై ప్రయాణిస్తున్న ఒక యువకుడికి ఎదురైన ఆసక్తికర సన్నివేశం కథగా మార్చబడింది.";
+            }, 1500);
+        }
+
+        // Publish Post Logic
+        function publishContent() {
+            const title = document.getElementById('post-title').value || document.getElementById('voice-title').value || document.getElementById('cinema-title').value || document.getElementById('music-title').value;
+            const category = document.getElementById('post-category').value || 'stories';
+            const content = document.getElementById('post-content').value || document.getElementById('voice-summary').value || document.getElementById('cinema-synopsis').value || document.getElementById('music-lyrics').value;
+            const isPremium = document.getElementById('post-is-premium').checked;
+
+            if (!title || !content) {
+                alertModal("దయచేసి టైటిల్ మరియు వివరాలను నమోదు చేయండి!");
+                return;
+            }
+
+            const newPost = {
+                id: `TAL-2026-${Math.floor(100 + Math.random() * 900)}`,
+                author: 'Ravi Varma',
+                avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120',
+                title: title,
+                category: category,
+                categoryLabel: getCategoryLabel(category),
+                content: content,
+                likes: 1,
+                coinsEarned: 0,
+                isPremium: isPremium,
+                isUnlocked: true,
+                hasVoice: category === 'voice',
+                isUserCreated: true,
+                timestamp: 'Just now'
+            };
+
+            appState.posts.unshift(newPost);
+            renderFeed();
+            renderUserProfile();
+            switchTab('feed');
+            alertModal("🎉 మీ దాగివున్న ప్రతిభ విజయవంతంగా పబ్లిష్ చేయబడింది! Digital Timestamp Issued.");
+        }
+
+        function getCategoryLabel(cat) {
+            const map = {
+                'cinema': '🎬 Movie Script',
+                'voice': '🎙️ Voice Story',
+                'stories': '📝 Short Story',
+                'music': '🎵 Song Lyrics',
+                'knowledge': '📚 Experience'
+            };
+            return map[cat] || '✍️ Story';
+        }
+
+        // Coin Tipping Mechanics
+        function sendCoinTip(postId) {
+            if (appState.userCoins < 20) {
+                openCoinModal();
+                return;
+            }
+            appState.userCoins -= 20;
+            updateCoinsDisplay();
+
+            const post = appState.posts.find(p => p.id === postId);
+            if (post) {
+                post.coinsEarned += 20;
+            }
+            alertModal("🪙 Creator tipped 20 Coins! Thank you for supporting creator talent.");
+        }
+
+        function unlockStory(postId) {
+            if (appState.userCoins < 10) {
+                openCoinModal();
+                return;
+            }
+            appState.userCoins -= 10;
+            updateCoinsDisplay();
+
+            const post = appState.posts.find(p => p.id === postId);
+            if (post) {
+                post.isUnlocked = true;
+            }
+            renderFeed();
+        }
+
+        function updateCoinsDisplay() {
+            document.getElementById('user-coins-display').innerText = appState.userCoins;
+        }
+
+        // Modal Handlers
+        function openCoinModal() { document.getElementById('coin-modal').classList.remove('hidden'); }
+        function closeCoinModal() { document.getElementById('coin-modal').classList.add('hidden'); }
+
+        function buyCoins(amount, price) {
+            appState.userCoins += amount;
+            updateCoinsDisplay();
+            closeCoinModal();
+            alertModal(`🎉 Successfully added ${amount} Coins to your account!`);
+        }
+
+        function openOpportunityModal(postId) {
+            document.getElementById('opportunity-modal').classList.remove('hidden');
+        }
+        function closeOpportunityModal() {
+            document.getElementById('opportunity-modal').classList.add('hidden');
+        }
+
+        function sendOpportunityInquiry() {
+            const role = document.getElementById('opp-role').value;
+            const studio = document.getElementById('opp-studio').value;
+            const msg = document.getElementById('opp-message').value;
+
+            if (!msg) {
+                alertModal("దయచేసి మీ మెసేజ్ నమోదు చేయండి!");
+                return;
+            }
+
+            closeOpportunityModal();
+            alertModal("🎬 Your Industry pitch message has been sent directly to the creator!");
+        }
+
+        function openOpportunitiesModal() {
+            document.getElementById('inquiries-modal').classList.remove('hidden');
+            const list = document.getElementById('inquiries-list');
+            list.innerHTML = appState.inquiries.map(i => `
+                <div class="p-3.5 bg-slate-950 rounded-xl border border-emerald-500/30 space-y-1">
+                    <div class="flex justify-between text-xs">
+                        <span class="font-bold text-emerald-400">${i.role}</span>
+                        <span class="text-slate-500">${i.date}</span>
+                    </div>
+                    <p class="text-xs font-semibold text-white">${i.studio}</p>
+                    <p class="text-xs text-slate-300">${i.message}</p>
+                </div>
+            `).join('');
+        }
+        function closeInquiriesModal() { document.getElementById('inquiries-modal').classList.add('hidden'); }
+
+        function playMockAudio(btn) {
+            const icon = btn.querySelector('i');
+            if (icon.classList.contains('fa-play')) {
+                icon.className = 'fa-solid fa-pause';
+            } else {
+                icon.className = 'fa-solid fa-play';
+            }
+        }
+
+        function likePost(postId, btn) {
+            const post = appState.posts.find(p => p.id === postId);
+            if (post) {
+                post.likes += 1;
+                btn.querySelector('span').innerText = post.likes;
+            }
+        }
+
+        function alertModal(msg) {
+            alert(msg);
+        }
+    </script>
+</body>
+</html>

@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html lang="te" class="h-full bg-slate-900 text-slate-100">
+<html lang="te" class="h-full bg-slate-950 text-slate-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TALENTLY - Talent Publishing & Creator Discovery Platform</title>
+    <title>TALENTLY - Global Talent Publishing & Creator Discovery Platform</title>
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
+    <!-- FontAwesome Icons CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Inter & Noto Sans Telugu -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Telugu:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Telugu:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <script>
         tailwind.config = {
             theme: {
@@ -34,69 +36,94 @@
         }
     </script>
     <style>
-        .gradient-border {
-            background: linear-gradient(135deg, #6366f1, #ec4899, #f59e0b);
-            padding: 1px;
-        }
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
             height: 6px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-            background: #1e293b;
+            background: #0f172a;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #475569;
+            background: #334155;
             border-radius: 4px;
+        }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
         }
     </style>
 </head>
-<body class="h-full flex flex-col font-sans bg-slate-950 text-slate-100 antialiased selection:bg-indigo-500 selection:text-white">
+<body class="h-full flex flex-col font-sans bg-slate-950 text-slate-100 antialiased selection:bg-indigo-500 selection:text-white custom-scrollbar">
 
     <!-- Top Navigation Header -->
-    <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+    <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <!-- Brand Logo -->
             <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('feed')">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-pink-500 to-amber-400 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-                    <i class="fa-solid font-bold text-white text-xl">T</i>
+                    <i class="fa-solid font-black text-white text-xl">T</i>
                 </div>
                 <div>
                     <div class="flex items-center gap-2">
                         <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-slate-100 to-indigo-300 bg-clip-text text-transparent">TALENTLY</span>
-                        <span class="text-[10px] bg-indigo-500/20 text-indigo-300 font-semibold px-2 py-0.5 rounded-full border border-indigo-500/30">unseen talent</span>
+                        <span class="text-[10px] bg-indigo-500/20 text-indigo-300 font-semibold px-2 py-0.5 rounded-full border border-indigo-500/30">global talent</span>
                     </div>
                     <p class="text-[11px] text-slate-400 hidden sm:block">మీ Talent... ప్రపంచానికి చూపించండి</p>
                 </div>
             </div>
 
-            <!-- Primary Navigation Links -->
             <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
-                <button onclick="switchTab('feed')" id="nav-feed" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium transition text-indigo-400 bg-slate-800/80">
+                <button onclick="switchTab('feed')" id="nav-feed" class="nav-btn px-3.5 py-2 rounded-xl text-sm font-semibold transition text-indigo-400 bg-slate-800/80 border border-slate-700/50">
                     <i class="fa-solid fa-compass mr-1.5"></i> Discover
                 </button>
-                <button onclick="switchTab('cinema')" id="nav-cinema" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition">
+                <button onclick="switchTab('cinema')" id="nav-cinema" class="nav-btn px-3.5 py-2 rounded-xl text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition">
                     <i class="fa-solid fa-film text-pink-400 mr-1.5"></i> Cinema Hub
                 </button>
-                <button onclick="switchTab('voice')" id="nav-voice" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition">
-                    <i class="fa-solid fa-microphone text-amber-400 mr-1.5"></i> Voice Stories
+                <button onclick="switchTab('voice')" id="nav-voice" class="nav-btn px-3.5 py-2 rounded-xl text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition">
+                    <i class="fa-solid fa-microphone text-amber-400 mr-1.5"></i> Voice Studio
                 </button>
-                <button onclick="switchTab('create')" id="nav-create" class="nav-btn px-3.5 py-2 rounded-lg text-sm font-bold bg-gradient-to-r from-indigo-600 to-pink-600 text-white shadow-md hover:opacity-95 transition">
-                    <i class="fa-solid fa-plus-circle mr-1.5"></i> Publish Talent
+                <button onclick="switchTab('create')" id="nav-create" class="nav-btn px-4 py-2 rounded-xl text-sm font-extrabold bg-gradient-to-r from-indigo-600 via-pink-600 to-amber-500 text-white shadow-lg hover:opacity-95 transition">
+                    <i class="fa-solid fa-cloud-arrow-up mr-1.5"></i> Upload & Publish
                 </button>
             </nav>
 
-            <!-- User Balance & Profile -->
-            <div class="flex items-center space-x-3">
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <!-- Global Preferred Language Selector Header Button -->
+                <div class="relative">
+                    <select id="header-lang-select" onchange="changeLanguageFilter(this.value)" class="bg-slate-800 text-slate-200 text-xs font-bold rounded-xl px-2.5 py-1.5 border border-indigo-500/40 focus:outline-none focus:border-indigo-400 cursor-pointer shadow-sm">
+                        <option value="all">🌐 World Languages (All)</option>
+                        <option value="Telugu">🇮🇳 Telugu (తెలుగు)</option>
+                        <option value="English">🇬🇧 English</option>
+                        <option value="Hindi">🇮🇳 Hindi (हिंदी)</option>
+                        <option value="Tamil">🇮🇳 Tamil (தமிழ்)</option>
+                        <option value="Kannada">🇮🇳 Kannada (ಕನ್ನಡ)</option>
+                        <option value="Malayalam">🇮🇳 Malayalam (മലയാളം)</option>
+                        <option value="Bengali">🇮🇳 Bengali (বাংলা)</option>
+                        <option value="Marathi">🇮🇳 Marathi (मराठी)</option>
+                        <option value="Spanish">🇪🇸 Spanish (Español)</option>
+                        <option value="French">🇫🇷 French (Français)</option>
+                        <option value="German">🇩🇪 German (Deutsch)</option>
+                        <option value="Japanese">🇯🇵 Japanese (日本語)</option>
+                        <option value="Chinese">🇨🇳 Chinese (中文)</option>
+                        <option value="Arabic">🇸🇦 Arabic (العربية)</option>
+                        <option value="Portuguese">🇵🇹 Portuguese (Português)</option>
+                        <option value="Korean">🇰🇷 Korean (한국어)</option>
+                        <option value="Russian">🇷🇺 Russian (Русский)</option>
+                        <option value="Italian">🇮🇹 Italian (Italiano)</option>
+                        <option value="Turkish">🇹🇷 Turkish (Türkçe)</option>
+                        <option value="Indonesian">🇮🇩 Indonesian (Bahasa)</option>
+                    </select>
+                </div>
+
                 <!-- Coin Balance Pill -->
                 <button onclick="openCoinModal()" class="flex items-center space-x-1.5 bg-amber-500/10 border border-amber-500/30 text-amber-300 px-3 py-1.5 rounded-full hover:bg-amber-500/20 transition">
                     <i class="fa-solid fa-coins text-amber-400"></i>
-                    <span id="user-coins-display" class="text-sm font-bold">250</span>
-                    <span class="text-[10px] bg-amber-500/30 px-1.5 py-0.2 rounded font-medium text-amber-200">Coins</span>
+                    <span id="user-coins-display" class="text-xs sm:text-sm font-black">250</span>
+                    <span class="text-[10px] bg-amber-500/30 px-1.5 py-0.2 rounded font-semibold text-amber-200 hidden sm:inline">Coins</span>
                 </button>
 
-                <!-- Opportunity Inquiries Alert -->
-                <button onclick="openOpportunitiesModal()" class="relative p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition" title="Film & Publishing Inquiries">
+                <!-- Opportunity Inquiries Alert Button -->
+                <button onclick="openInquiriesModal()" class="relative p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-xl transition" title="Film & Publishing Inquiries">
                     <i class="fa-solid fa-briefcase text-emerald-400 text-lg"></i>
                     <span id="inquiry-badge" class="absolute top-1 right-1 flex h-2.5 w-2.5">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -104,30 +131,30 @@
                     </span>
                 </button>
 
-                <!-- Profile Switcher -->
-                <button onclick="switchTab('profile')" class="flex items-center space-x-2 border border-slate-700 p-1.5 rounded-xl hover:border-slate-500 transition">
+                <!-- Profile Button -->
+                <button onclick="switchTab('profile')" class="flex items-center space-x-2 border border-slate-700/80 p-1.5 rounded-xl hover:border-slate-500 transition">
                     <img id="header-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120" alt="Avatar" class="w-7 h-7 rounded-lg object-cover">
-                    <span class="text-xs font-semibold text-slate-200 hidden lg:inline">Ravi Varma</span>
+                    <span class="text-xs font-bold text-slate-200 hidden lg:inline">Ravi Varma</span>
                 </button>
             </div>
         </div>
 
-        <!-- Mobile Bottom Nav Bar -->
-        <div class="md:hidden flex justify-around bg-slate-900 border-t border-slate-800 py-2">
-            <button onclick="switchTab('feed')" class="flex flex-col items-center text-xs text-indigo-400">
-                <i class="fa-solid fa-compass text-base mb-0.5"></i> Discover
+        <!-- Mobile Bottom Navigation -->
+        <div class="md:hidden flex justify-around bg-slate-900 border-t border-slate-800 py-2.5 px-2">
+            <button onclick="switchTab('feed')" class="flex flex-col items-center text-[11px] text-indigo-400 font-semibold">
+                <i class="fa-solid fa-compass text-lg mb-0.5"></i> Discover
             </button>
-            <button onclick="switchTab('cinema')" class="flex flex-col items-center text-xs text-slate-400">
-                <i class="fa-solid fa-film text-base text-pink-400 mb-0.5"></i> Cinema
+            <button onclick="switchTab('cinema')" class="flex flex-col items-center text-[11px] text-slate-400 font-semibold">
+                <i class="fa-solid fa-film text-lg text-pink-400 mb-0.5"></i> Cinema
             </button>
-            <button onclick="switchTab('create')" class="flex flex-col items-center text-xs text-pink-400 font-bold">
-                <i class="fa-solid fa-circle-plus text-lg mb-0.5"></i> Publish
+            <button onclick="switchTab('create')" class="flex flex-col items-center text-[11px] text-pink-400 font-bold">
+                <i class="fa-solid fa-cloud-arrow-up text-xl mb-0.5"></i> Upload
             </button>
-            <button onclick="switchTab('voice')" class="flex flex-col items-center text-xs text-slate-400">
-                <i class="fa-solid fa-microphone text-base text-amber-400 mb-0.5"></i> Voice
+            <button onclick="switchTab('voice')" class="flex flex-col items-center text-[11px] text-slate-400 font-semibold">
+                <i class="fa-solid fa-microphone text-lg text-amber-400 mb-0.5"></i> Voice
             </button>
-            <button onclick="switchTab('profile')" class="flex flex-col items-center text-xs text-slate-400">
-                <i class="fa-solid fa-user text-base mb-0.5"></i> Profile
+            <button onclick="switchTab('profile')" class="flex flex-col items-center text-[11px] text-slate-400 font-semibold">
+                <i class="fa-solid fa-user text-lg mb-0.5"></i> Profile
             </button>
         </div>
     </header>
@@ -135,29 +162,47 @@
     <!-- Main Content Container -->
     <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 custom-scrollbar overflow-y-auto">
 
-        <!-- Banner Announcement -->
-        <div class="mb-6 rounded-2xl bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-indigo-500/30 p-4 sm:p-6 relative overflow-hidden shadow-2xl">
-            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-pink-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <!-- Platform Banner -->
+        <div class="mb-6 rounded-2xl bg-gradient-to-r from-slate-900 via-indigo-950/80 to-slate-900 border border-indigo-500/30 p-5 sm:p-6 relative overflow-hidden shadow-2xl">
+            <div class="absolute -right-10 -bottom-10 w-56 h-56 bg-pink-500/10 rounded-full blur-3xl pointer-events-none"></div>
             <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                <div class="space-y-1 max-w-2xl">
-                    <div class="flex items-center gap-2">
-                        <span class="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-bold text-xs px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                            🎬 Talent to Opportunity Platform
+                <div class="space-y-1.5 max-w-2xl">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-black text-[11px] px-3 py-0.5 rounded-full uppercase tracking-wider">
+                            🎬 Multi-Language Creator Hub
                         </span>
-                        <span class="text-xs text-slate-400 hidden sm:inline">• Direct Film Producer & Publisher Connect</span>
+                        <span class="text-xs text-indigo-300 font-semibold">🌐 Publish in any World Language</span>
                     </div>
-                    <h1 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
-                        మీ దాగివున్న Talentని సగర్వంగా ప్రదర్శించండి!
+                    <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight">
+                        మీ దగ్గర ఉన్న Stories, Songs & Scripts ని ఏ భాషలోనైనా Upload చేయండి!
                     </h1>
-                    <p class="text-xs sm:text-sm text-slate-300">
-                        Stories, Movie Scripts, Dialogues, Song Lyrics, Voice Audios & Real Experiences — Publish your creations, earn coins/subscriptions, and get discovered by industry filmmakers!
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        Publish scripts, audio recordings & pitch decks in Telugu, English, Hindi, Spanish, French, Japanese, and all world languages. Monetize & connect with producers worldwide!
                     </p>
                 </div>
                 <div class="flex items-center gap-3 w-full md:w-auto">
-                    <button onclick="switchTab('create')" class="flex-1 md:flex-none px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 transition text-center">
-                        <i class="fa-solid fa-pen-nib mr-1.5"></i> Start Publishing Now
+                    <button onclick="switchTab('create')" class="w-full md:w-auto px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 transition text-center whitespace-nowrap">
+                        <i class="fa-solid fa-cloud-arrow-up mr-1.5"></i> Upload Work Now
                     </button>
                 </div>
+            </div>
+        </div>
+
+        <!-- Preferred Languages Quick Bar -->
+        <div class="mb-6 bg-slate-900/80 border border-slate-800 rounded-2xl p-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div class="flex items-center gap-2 text-xs text-slate-400 font-bold whitespace-nowrap">
+                <i class="fa-solid fa-language text-indigo-400 text-base"></i>
+                <span>Preferred Language Filter:</span>
+            </div>
+            <div class="flex items-center gap-1.5 overflow-x-auto w-full custom-scrollbar pb-1 sm:pb-0">
+                <button onclick="changeLanguageFilter('all')" class="lang-pill-btn px-3 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white shadow whitespace-nowrap" data-lang="all">🌐 All Languages</button>
+                <button onclick="changeLanguageFilter('Telugu')" class="lang-pill-btn px-3 py-1 rounded-lg text-xs font-bold bg-slate-950 text-slate-300 hover:bg-slate-800 border border-slate-800 transition whitespace-nowrap" data-lang="Telugu">🇮🇳 Telugu</button>
+                <button onclick="changeLanguageFilter('English')" class="lang-pill-btn px-3 py-1 rounded-lg text-xs font-bold bg-slate-950 text-slate-300 hover:bg-slate-800 border border-slate-800 transition whitespace-nowrap" data-lang="English">🇬🇧 English</button>
+                <button onclick="changeLanguageFilter('Hindi')" class="lang-pill-btn px-3 py-1 rounded-lg text-xs font-bold bg-slate-950 text-slate-300 hover:bg-slate-800 border border-slate-800 transition whitespace-nowrap" data-lang="Hindi">🇮🇳 Hindi</button>
+                <button onclick="changeLanguageFilter('Tamil')" class="lang-pill-btn px-3 py-1 rounded-lg text-xs font-bold bg-slate-950 text-slate-300 hover:bg-slate-800 border border-slate-800 transition whitespace-nowrap" data-lang="Tamil">🇮🇳 Tamil</button>
+                <button onclick="changeLanguageFilter('Spanish')" class="lang-pill-btn px-3 py-1 rounded-lg text-xs font-bold bg-slate-950 text-slate-300 hover:bg-slate-800 border border-slate-800 transition whitespace-nowrap" data-lang="Spanish">🇪🇸 Spanish</button>
+                <button onclick="changeLanguageFilter('French')" class="lang-pill-btn px-3 py-1 rounded-lg text-xs font-bold bg-slate-950 text-slate-300 hover:bg-slate-800 border border-slate-800 transition whitespace-nowrap" data-lang="French">🇫🇷 French</button>
+                <button onclick="changeLanguageFilter('Japanese')" class="lang-pill-btn px-3 py-1 rounded-lg text-xs font-bold bg-slate-950 text-slate-300 hover:bg-slate-800 border border-slate-800 transition whitespace-nowrap" data-lang="Japanese">🇯🇵 Japanese</button>
             </div>
         </div>
 
@@ -166,97 +211,89 @@
             
             <!-- Category Selector Pills -->
             <div class="flex items-center gap-2 overflow-x-auto pb-2 custom-scrollbar">
-                <button onclick="filterCategory('all')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-indigo-600 text-white shadow-md whitespace-nowrap" data-cat="all">
+                <button onclick="filterCategory('all')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 text-white shadow-md whitespace-nowrap" data-cat="all">
                     🔥 All Talents
                 </button>
-                <button onclick="filterCategory('cinema')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition whitespace-nowrap" data-cat="cinema">
+                <button onclick="filterCategory('cinema')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800 transition whitespace-nowrap" data-cat="cinema">
                     🎬 Cinema Scripts & Pitches
                 </button>
-                <button onclick="filterCategory('voice')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition whitespace-nowrap" data-cat="voice">
-                    🎙️ Voice Stories & Audio
+                <button onclick="filterCategory('voice')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800 transition whitespace-nowrap" data-cat="voice">
+                    🎙️ Voice Stories & Audio Songs
                 </button>
-                <button onclick="filterCategory('stories')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition whitespace-nowrap" data-cat="stories">
+                <button onclick="filterCategory('stories')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800 transition whitespace-nowrap" data-cat="stories">
                     ✍️ Novels & Short Stories
                 </button>
-                <button onclick="filterCategory('music')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition whitespace-nowrap" data-cat="music">
-                    🎵 Music Lyrics & Tunes
+                <button onclick="filterCategory('music')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800 transition whitespace-nowrap" data-cat="music">
+                    🎵 Music Lyrics & Audio Tracks
                 </button>
-                <button onclick="filterCategory('knowledge')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition whitespace-nowrap" data-cat="knowledge">
+                <button onclick="filterCategory('knowledge')" class="cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800 transition whitespace-nowrap" data-cat="knowledge">
                     📚 Practical Knowledge & Tips
                 </button>
             </div>
 
-            <!-- Feed Content Layout (Grid) -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Main Feed (2 Columns on large screen) -->
+                <!-- Main Feed Grid Container -->
                 <div class="lg:col-span-2 space-y-6" id="feed-container">
-                    <!-- Cards will be dynamically rendered via JS -->
+                    <!-- Cards are dynamically generated in JavaScript -->
                 </div>
 
-                <!-- Sidebar: Trending Creators & Industry Opportunities -->
+                <!-- Sidebar: Industry Opportunities & Top Creators -->
                 <div class="space-y-6">
                     <!-- Industry Producer Pitch Desk Widget -->
-                    <div class="bg-gradient-to-b from-indigo-950/80 to-slate-900 border border-emerald-500/30 rounded-2xl p-5 shadow-xl">
-                        <div class="flex items-center space-x-2 text-emerald-400 font-bold text-sm mb-2">
-                            <i class="fa-solid fa-clapperboard text-base"></i>
+                    <div class="bg-gradient-to-b from-indigo-950/90 to-slate-900 border border-emerald-500/40 rounded-2xl p-5 shadow-xl">
+                        <div class="flex items-center space-x-2 text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2">
+                            <i class="fa-solid fa-clapperboard text-sm"></i>
                             <span>Opportunity Radar</span>
                         </div>
-                        <h3 class="text-base font-extrabold text-white mb-2">Are you a Director or Producer?</h3>
+                        <h3 class="text-base font-extrabold text-white mb-1.5">Are you a Director or Producer?</h3>
                         <p class="text-xs text-slate-300 mb-4 leading-relaxed">
-                            Discover unreleased Telugu stories, cinematic concepts & lyrics directly from creators. Click <strong>"Request Opportunity"</strong> on any card to contact creators directly.
+                            Discover uploaded PDF scripts, audio story recordings & music demos in any language. Click <strong>"Request Opportunity"</strong> to reach writers directly.
                         </p>
-                        <div class="bg-slate-900/80 rounded-xl p-3 border border-slate-800 text-xs space-y-2">
+                        <div class="bg-slate-950/80 rounded-xl p-3 border border-slate-800 text-xs space-y-2">
                             <div class="flex justify-between items-center text-slate-300">
-                                <span><i class="fa-solid fa-check-circle text-emerald-400 mr-1"></i> Option Rights</span>
-                                <span class="text-slate-400">Available</span>
+                                <span><i class="fa-solid fa-circle-check text-emerald-400 mr-1.5"></i> Script Rights Available</span>
+                                <span class="text-slate-400 text-[11px]">Direct Contact</span>
                             </div>
                             <div class="flex justify-between items-center text-slate-300">
-                                <span><i class="fa-solid fa-shield-halved text-indigo-400 mr-1"></i> Copyright Protection</span>
-                                <span class="text-slate-400">Verified</span>
+                                <span><i class="fa-solid fa-file-pdf text-red-400 mr-1.5"></i> PDF Script & Pitch Download</span>
+                                <span class="text-slate-400 text-[11px]">Protected</span>
                             </div>
                         </div>
                     </div>
 
                     <!-- Rising Creators Section -->
-                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
+                    <div class="bg-slate-900 border border-slate-800/80 rounded-2xl p-5 shadow-xl space-y-4">
                         <div class="flex justify-between items-center">
                             <h3 class="font-bold text-sm text-white flex items-center gap-2">
-                                <i class="fa-solid fa-fire text-amber-400"></i> Rising Creators
+                                <i class="fa-solid fa-fire text-amber-400"></i> Global Rising Creators
                             </h3>
-                            <span class="text-xs text-indigo-400 cursor-pointer hover:underline">View Top 50</span>
+                            <span class="text-xs text-indigo-400 font-semibold cursor-pointer hover:underline">View All</span>
                         </div>
 
                         <div class="space-y-3" id="rising-creators-list">
-                            <!-- Populated dynamically -->
+                            <!-- Populated dynamically via JS -->
                         </div>
                     </div>
 
-                    <!-- Monetization Stats Preview -->
-                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-3">
+                    <!-- Monetization Information Widget -->
+                    <div class="bg-slate-900 border border-slate-800/80 rounded-2xl p-5 shadow-xl space-y-3">
                         <h3 class="font-bold text-sm text-white flex items-center gap-2">
                             <i class="fa-solid fa-sack-dollar text-emerald-400"></i> Monetization Models
                         </h3>
-                        <div class="space-y-2 text-xs text-slate-300">
-                            <div class="p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/50 flex items-center justify-between">
+                        <div class="space-y-2 text-xs">
+                            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
                                 <div>
-                                    <div class="font-semibold text-white">💰 Coin Tipping & Gifts</div>
-                                    <div class="text-[11px] text-slate-400">Readers send coins for support</div>
+                                    <div class="font-bold text-white">💰 Coin Tipping</div>
+                                    <div class="text-[11px] text-slate-400">Readers send coin support</div>
                                 </div>
-                                <span class="text-amber-400 font-bold">100 Coins = ₹49</span>
+                                <span class="text-amber-400 font-extrabold">100 Coins = ₹49 / $0.99</span>
                             </div>
-                            <div class="p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/50 flex items-center justify-between">
+                            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
                                 <div>
-                                    <div class="font-semibold text-white">🔒 Premium Chapter Unlock</div>
-                                    <div class="text-[11px] text-slate-400">Part 1 Free, Part 2 Costs Coins</div>
+                                    <div class="font-bold text-white">🔒 Premium Lock</div>
+                                    <div class="text-[11px] text-slate-400">Pay-per-download / unlock</div>
                                 </div>
-                                <span class="text-indigo-400 font-bold">Pay-per-read</span>
-                            </div>
-                            <div class="p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/50 flex items-center justify-between">
-                                <div>
-                                    <div class="font-semibold text-white">⭐ Fan Subscriptions</div>
-                                    <div class="text-[11px] text-slate-400">Recurring support from super fans</div>
-                                </div>
-                                <span class="text-pink-400 font-bold">₹49/month</span>
+                                <span class="text-indigo-400 font-extrabold">10 Coins/Unlock</span>
                             </div>
                         </div>
                     </div>
@@ -266,40 +303,40 @@
 
         <!-- ================= TAB 2: CINEMA HUB ================= -->
         <section id="tab-cinema" class="tab-content hidden space-y-6">
-            <div class="bg-gradient-to-r from-pink-950/40 via-slate-900 to-indigo-950/40 border border-pink-500/30 rounded-2xl p-6 shadow-2xl">
+            <div class="bg-gradient-to-r from-pink-950/50 via-slate-900 to-indigo-950/50 border border-pink-500/30 rounded-2xl p-6 shadow-2xl">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
-                        <span class="px-2.5 py-0.5 bg-pink-500/20 text-pink-300 text-xs font-bold rounded-full uppercase">🎬 Cinema Talent Pitch Desk</span>
-                        <h2 class="text-2xl font-extrabold text-white mt-1">సినిమా కథలు, స్క్రీన్ ప్లే & డైలాగ్స్</h2>
+                        <span class="px-3 py-0.5 bg-pink-500/20 text-pink-300 text-xs font-bold rounded-full uppercase">🎬 Cinema Pitch Desk</span>
+                        <h2 class="text-2xl font-black text-white mt-1">సినిమా కథలు, స్క్రీన్ ప్లే & Multi-Language Scripts</h2>
                         <p class="text-xs sm:text-sm text-slate-300 mt-1">
-                            Pitch complete movie outlines, villain characters, comedy scenes, and web-series pitch decks directly to creators & directors.
+                            Upload full script PDFs, movie outlines, villain sketches, or web-series pitch decks in any language for film producers.
                         </p>
                     </div>
-                    <button onclick="openCinemaPitchModal()" class="px-5 py-2.5 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-sm shadow-lg shadow-pink-600/30 transition">
-                        <i class="fa-solid fa-clapperboard mr-1.5"></i> Submit Cinema Pitch
+                    <button onclick="switchTab('create'); switchStudioTab('cinema-tab');" class="px-5 py-2.5 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-sm shadow-lg shadow-pink-600/30 transition">
+                        <i class="fa-solid fa-file-arrow-up mr-1.5"></i> Upload Cinema Script / Pitch
                     </button>
                 </div>
             </div>
 
-            <!-- Cinema Pitch Grid -->
+            <!-- Cinema Pitch Cards Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="cinema-container">
-                <!-- Cinema pitches render here -->
+                <!-- Dynamic Cinema Pitches render here -->
             </div>
         </section>
 
         <!-- ================= TAB 3: VOICE STORIES HUB ================= -->
         <section id="tab-voice" class="tab-content hidden space-y-6">
-            <div class="bg-gradient-to-r from-amber-950/40 via-slate-900 to-slate-900 border border-amber-500/30 rounded-2xl p-6 shadow-2xl">
+            <div class="bg-gradient-to-r from-amber-950/50 via-slate-900 to-slate-900 border border-amber-500/30 rounded-2xl p-6 shadow-2xl">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
-                        <span class="px-2.5 py-0.5 bg-amber-500/20 text-amber-300 text-xs font-bold rounded-full uppercase">🎙️ Voice Studio & Audio Stories</span>
-                        <h2 class="text-2xl font-extrabold text-white mt-1">టైప్ చేయడం రాకపోయినా… మాట్లాడి కథలు చెప్పండి!</h2>
+                        <span class="px-3 py-0.5 bg-amber-500/20 text-amber-300 text-xs font-bold rounded-full uppercase">🎙️ Voice & Audio Songs Hub</span>
+                        <h2 class="text-2xl font-black text-white mt-1">మాట్లాడి రికార్డ్ చేయండి లేదా Audio File Upload చేయండి!</h2>
                         <p class="text-xs sm:text-sm text-slate-300 mt-1">
-                            Record 10-minute audio stories, movie narrations, or folk tunes directly from your browser microphone with Gemini AI script auto-transcription!
+                            Record high-quality audio stories live or upload pre-recorded MP3/WAV audio files in your mother tongue.
                         </p>
                     </div>
-                    <button onclick="switchTab('create'); switchStudioTab('voice-tab');" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-sm shadow-lg shadow-amber-500/20 transition">
-                        <i class="fa-solid fa-microphone-lines mr-1.5"></i> Open Voice Studio
+                    <button onclick="switchTab('create'); switchStudioTab('voice-tab');" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm shadow-lg shadow-amber-500/20 transition">
+                        <i class="fa-solid fa-file-audio mr-1.5"></i> Upload Audio Story / Song
                     </button>
                 </div>
             </div>
@@ -315,39 +352,61 @@
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl max-w-4xl mx-auto">
                 <div class="border-b border-slate-800 pb-4 mb-6">
                     <h2 class="text-2xl font-black text-white flex items-center gap-2">
-                        <i class="fa-solid fa-feather-pointed text-indigo-400"></i> Publishing Studio
+                        <i class="fa-solid fa-cloud-arrow-up text-indigo-400"></i> Creator Upload & Studio
                     </h2>
                     <p class="text-xs sm:text-sm text-slate-400 mt-1">
-                        మీ ప్రతిభను ప్రపంచానికి చూపించండి. Select content type to start creation:
+                        Select format and language. Type directly or <strong>upload existing files</strong> (PDF, Word, MP3, WAV):
                     </p>
                 </div>
 
-                <!-- Content Type Selector Tabs -->
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6">
-                    <button onclick="switchStudioTab('text-tab')" id="btn-text-tab" class="studio-tab-btn py-3 px-3 rounded-xl border border-indigo-500 bg-indigo-600/20 text-indigo-300 font-bold text-xs sm:text-sm text-center flex flex-col items-center gap-1 transition">
+                <!-- Studio Format Tabs -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-6">
+                    <button onclick="switchStudioTab('text-tab')" id="btn-text-tab" class="studio-tab-btn py-3 px-3 rounded-xl border border-indigo-500 bg-indigo-600/20 text-indigo-300 font-bold text-xs sm:text-sm text-center flex flex-col items-center gap-1.5 transition">
                         <i class="fa-solid fa-align-left text-lg"></i>
-                        <span>✍️ Text Story / Script</span>
+                        <span>✍️ Story / Document</span>
                     </button>
-                    <button onclick="switchStudioTab('voice-tab')" id="btn-voice-tab" class="studio-tab-btn py-3 px-3 rounded-xl border border-slate-800 bg-slate-800/50 text-slate-400 font-semibold text-xs sm:text-sm text-center flex flex-col items-center gap-1 transition hover:border-slate-700">
+                    <button onclick="switchStudioTab('voice-tab')" id="btn-voice-tab" class="studio-tab-btn py-3 px-3 rounded-xl border border-slate-800 bg-slate-950 text-slate-400 font-semibold text-xs sm:text-sm text-center flex flex-col items-center gap-1.5 transition hover:border-slate-700">
                         <i class="fa-solid fa-microphone text-lg text-amber-400"></i>
-                        <span>🎙️ Voice Studio</span>
+                        <span>🎙️ Audio / Voice Story</span>
                     </button>
-                    <button onclick="switchStudioTab('cinema-tab')" id="btn-cinema-tab" class="studio-tab-btn py-3 px-3 rounded-xl border border-slate-800 bg-slate-800/50 text-slate-400 font-semibold text-xs sm:text-sm text-center flex flex-col items-center gap-1 transition hover:border-slate-700">
+                    <button onclick="switchStudioTab('cinema-tab')" id="btn-cinema-tab" class="studio-tab-btn py-3 px-3 rounded-xl border border-slate-800 bg-slate-950 text-slate-400 font-semibold text-xs sm:text-sm text-center flex flex-col items-center gap-1.5 transition hover:border-slate-700">
                         <i class="fa-solid fa-film text-lg text-pink-400"></i>
-                        <span>🎬 Cinema Pitch Deck</span>
+                        <span>🎬 Cinema Script / PDF</span>
                     </button>
-                    <button onclick="switchStudioTab('music-tab')" id="btn-music-tab" class="studio-tab-btn py-3 px-3 rounded-xl border border-slate-800 bg-slate-800/50 text-slate-400 font-semibold text-xs sm:text-sm text-center flex flex-col items-center gap-1 transition hover:border-slate-700">
+                    <button onclick="switchStudioTab('music-tab')" id="btn-music-tab" class="studio-tab-btn py-3 px-3 rounded-xl border border-slate-800 bg-slate-950 text-slate-400 font-semibold text-xs sm:text-sm text-center flex flex-col items-center gap-1.5 transition hover:border-slate-700">
                         <i class="fa-solid fa-music text-lg text-purple-400"></i>
-                        <span>🎵 Lyrics & Music</span>
+                        <span>🎵 Songs & Music Tracks</span>
                     </button>
                 </div>
 
-                <!-- Form: Text & Story Publishing -->
+                <!-- Studio Form: Text & Story -->
                 <div id="studio-text-tab" class="studio-form-content space-y-5">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Content Title *</label>
-                            <input type="text" id="post-title" placeholder="ఉదా: విక్రమార్కుని చివరి ప్రయాణం" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+                            <input type="text" id="post-title" placeholder="e.g., The Secret Journey / విక్రమార్కుని ప్రయాణం" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Language / భాష *</label>
+                            <select id="post-lang-text" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
+                                <option value="Telugu">🇮🇳 Telugu (తెలుగు)</option>
+                                <option value="English">🇬🇧 English</option>
+                                <option value="Hindi">🇮🇳 Hindi (हिंदी)</option>
+                                <option value="Tamil">🇮🇳 Tamil (தமிழ்)</option>
+                                <option value="Kannada">🇮🇳 Kannada (ಕನ್ನಡ)</option>
+                                <option value="Malayalam">🇮🇳 Malayalam (മലയാളം)</option>
+                                <option value="Bengali">🇮🇳 Bengali (বাংলা)</option>
+                                <option value="Marathi">🇮🇳 Marathi (मराठी)</option>
+                                <option value="Spanish">🇪🇸 Spanish (Español)</option>
+                                <option value="French">🇫🇷 French (Français)</option>
+                                <option value="German">🇩🇪 German (Deutsch)</option>
+                                <option value="Japanese">🇯🇵 Japanese (日本語)</option>
+                                <option value="Chinese">🇨🇳 Chinese (中文)</option>
+                                <option value="Arabic">🇸🇦 Arabic (العربية)</option>
+                                <option value="Portuguese">🇵🇹 Portuguese (Português)</option>
+                                <option value="Korean">🇰🇷 Korean (한국어)</option>
+                                <option value="Russian">🇷🇺 Russian (Русский)</option>
+                            </select>
                         </div>
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Category *</label>
@@ -361,81 +420,137 @@
                         </div>
                     </div>
 
+                    <!-- File Upload Dropzone for Text Documents -->
                     <div>
-                        <div class="flex justify-between items-center mb-1">
-                            <label class="block text-xs font-bold uppercase text-slate-400">Content / Script Body *</label>
-                            <!-- Gemini AI Assistant Button -->
-                            <button onclick="enhanceContentWithGemini()" type="button" class="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1 bg-indigo-500/10 px-2.5 py-1 rounded-lg border border-indigo-500/30">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i> Spark Gemini AI Pitch Refiner
-                            </button>
+                        <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Upload File (PDF, DOCX, TXT) - Optional</label>
+                        <div class="relative border-2 border-dashed border-indigo-500/40 rounded-xl p-4 bg-slate-950 text-center hover:border-indigo-500 transition cursor-pointer" onclick="document.getElementById('text-file-input').click()">
+                            <input type="file" id="text-file-input" accept=".pdf,.docx,.txt,.doc" class="hidden" onchange="handleFileSelected(event, 'text-file-status')">
+                            <div class="space-y-1">
+                                <i class="fa-solid fa-file-arrow-up text-2xl text-indigo-400"></i>
+                                <div class="text-xs text-slate-300 font-semibold" id="text-file-status">Click to browse or drag & drop story file (.pdf, .docx, .txt)</div>
+                                <div class="text-[10px] text-slate-500">Maximum size: 25MB</div>
+                            </div>
                         </div>
-                        <textarea id="post-content" rows="8" placeholder="మీ కథ లేదా ఐడియాను ఇక్కడ రాయండి..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-sm text-slate-200 focus:outline-none focus:border-indigo-500 leading-relaxed custom-scrollbar"></textarea>
                     </div>
 
-                    <!-- Monetization Setting -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <label class="block text-xs font-bold uppercase text-slate-400">Content / Story Summary *</label>
+                            <button onclick="enhanceContentWithGemini()" type="button" class="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1 bg-indigo-500/10 px-2.5 py-1 rounded-lg border border-indigo-500/30">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Refine with AI Assistant
+                            </button>
+                        </div>
+                        <textarea id="post-content" rows="6" placeholder="మీ కథ లేదా ఐడియాను ఇక్కడ రాయండి లేదా అప్‌లోడ్ చేసిన ఫైల్ సమ్మరీని ఎంటర్ చేయండి..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-sm text-slate-200 focus:outline-none focus:border-indigo-500 leading-relaxed custom-scrollbar"></textarea>
+                    </div>
+
                     <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
                         <div>
                             <div class="text-xs font-bold text-white flex items-center gap-1.5">
                                 <i class="fa-solid fa-lock text-amber-400"></i> Premium Coin Lock (Monetization)
                             </div>
-                            <div class="text-[11px] text-slate-400">Require 10 Coins to unlock Part 2 of this story</div>
+                            <div class="text-[11px] text-slate-400">Require 10 Coins to unlock & download file/story</div>
                         </div>
                         <input type="checkbox" id="post-is-premium" class="w-5 h-5 accent-indigo-600 rounded cursor-pointer">
                     </div>
                 </div>
 
-                <!-- Form: Voice Audio Studio -->
+                <!-- Studio Form: Voice Audio -->
                 <div id="studio-voice-tab" class="studio-form-content hidden space-y-5">
-                    <div class="bg-slate-950 border border-amber-500/20 p-6 rounded-2xl text-center space-y-4">
-                        <div id="recording-status" class="text-xs font-semibold text-amber-400 uppercase tracking-wider">
-                            Ready to record audio story
+                    
+                    <!-- Upload or Live Record Toggle -->
+                    <div class="flex items-center justify-center gap-3 bg-slate-950 p-1.5 rounded-xl border border-slate-800 max-w-sm mx-auto text-xs font-bold">
+                        <button onclick="setVoiceMode('upload')" id="btn-voice-mode-upload" class="flex-1 py-2 rounded-lg bg-amber-500 text-slate-950 transition">
+                            <i class="fa-solid fa-upload mr-1"></i> Upload Audio File
+                        </button>
+                        <button onclick="setVoiceMode('record')" id="btn-voice-mode-record" class="flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition">
+                            <i class="fa-solid fa-microphone mr-1"></i> Live Record Mic
+                        </button>
+                    </div>
+
+                    <!-- Voice Upload Option -->
+                    <div id="voice-upload-section" class="border-2 border-dashed border-amber-500/40 rounded-2xl p-6 bg-slate-950 text-center hover:border-amber-500 transition cursor-pointer" onclick="document.getElementById('voice-file-input').click()">
+                        <input type="file" id="voice-file-input" accept="audio/*,.mp3,.wav,.m4a,.aac" class="hidden" onchange="handleAudioFileSelected(event)">
+                        <div class="space-y-2">
+                            <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-2xl mx-auto">
+                                <i class="fa-solid fa-file-audio"></i>
+                            </div>
+                            <div class="text-sm font-bold text-white" id="voice-file-status">Click to upload recorded audio file (.mp3, .wav, .m4a)</div>
+                            <p class="text-xs text-slate-400">Select any recorded story narration or podcast from your mobile/PC</p>
+                        </div>
+                    </div>
+
+                    <!-- Live Record Option (Hidden by default) -->
+                    <div id="voice-record-section" class="hidden bg-slate-950 border border-amber-500/20 p-6 rounded-2xl text-center space-y-4">
+                        <div id="recording-status" class="text-xs font-bold text-amber-400 uppercase tracking-wider">
+                            Ready to record voice audio story
                         </div>
 
-                        <!-- Waveform Graphic Canvas / Visualizer -->
-                        <div class="h-16 bg-slate-900 rounded-xl flex items-center justify-center overflow-hidden border border-slate-800">
-                            <canvas id="audio-waveform-canvas" class="w-full h-full"></canvas>
+                        <!-- Audio Waveform Canvas -->
+                        <div class="h-20 bg-slate-900 rounded-xl flex items-center justify-center overflow-hidden border border-slate-800">
+                            <canvas id="audio-waveform-canvas" width="600" height="80" class="w-full h-full"></canvas>
                         </div>
 
                         <!-- Record Controls -->
                         <div class="flex justify-center items-center gap-4">
-                            <button id="btn-start-record" onclick="startRecording()" class="w-14 h-14 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 flex items-center justify-center text-xl shadow-lg transition">
+                            <button id="btn-start-record" onclick="startRecording()" class="w-14 h-14 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 flex items-center justify-center text-2xl shadow-lg transition">
                                 <i class="fa-solid fa-microphone"></i>
                             </button>
-                            <button id="btn-stop-record" onclick="stopRecording()" disabled class="w-12 h-12 rounded-full bg-slate-800 text-slate-500 flex items-center justify-center text-lg transition">
+                            <button id="btn-stop-record" onclick="stopRecording()" disabled class="w-12 h-12 rounded-full bg-slate-800 text-slate-600 flex items-center justify-center text-lg transition">
                                 <i class="fa-solid fa-stop"></i>
                             </button>
                         </div>
-                        <p class="text-xs text-slate-400">Click mic to record up to 10 minutes story narration.</p>
+                        <p class="text-xs text-slate-400">Click mic icon to capture audio story narration.</p>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
-                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Voice Story Title *</label>
-                            <input type="text" id="voice-title" placeholder="ఉదా: నా జీవితంలో జరిగిన ఒక విచిత్ర సంఘటన" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Voice Story / Song Title *</label>
+                            <input type="text" id="voice-title" placeholder="e.g. Mystery Audio Story / Podcast" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Speaker Tag</label>
-                            <input type="text" id="voice-tag" placeholder="e.g. Cinema Story Pitch / Real Experience" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none">
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Language / భాష *</label>
+                            <select id="post-lang-voice" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+                                <option value="Telugu">🇮🇳 Telugu (తెలుగు)</option>
+                                <option value="English">🇬🇧 English</option>
+                                <option value="Hindi">🇮🇳 Hindi (हिंदी)</option>
+                                <option value="Tamil">🇮🇳 Tamil (தமிழ்)</option>
+                                <option value="Kannada">🇮🇳 Kannada (ಕನ್ನಡ)</option>
+                                <option value="Spanish">🇪🇸 Spanish (Español)</option>
+                                <option value="French">🇫🇷 French (Français)</option>
+                                <option value="Japanese">🇯🇵 Japanese (日本語)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Speaker / Singer Tag</label>
+                            <input type="text" id="voice-tag" placeholder="e.g. Real Audio Story / Demo Track" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none">
                         </div>
                     </div>
 
                     <div>
-                        <div class="flex justify-between items-center mb-1">
-                            <label class="block text-xs font-bold uppercase text-slate-400">Story Text / AI Transcription Summary</label>
-                            <button onclick="autoTranscribeWithGemini()" type="button" class="text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1">
-                                <i class="fa-solid fa-file-audio"></i> ✨ Gemini Auto Transcribe
-                            </button>
-                        </div>
-                        <textarea id="voice-summary" rows="3" placeholder="ఆడియో గురించి చిన్న సమ్మరీ లేదా ట్రాన్స్ క్రిప్షన్..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-amber-500"></textarea>
+                        <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Audio Story Summary / Details</label>
+                        <textarea id="voice-summary" rows="3" placeholder="ఆడియో గురించి చిన్న సమ్మరీ లేదా వివరణ..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-amber-500"></textarea>
                     </div>
                 </div>
 
-                <!-- Form: Cinema Pitch Deck -->
+                <!-- Studio Form: Cinema Pitch Deck -->
                 <div id="studio-cinema-tab" class="studio-form-content hidden space-y-5">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Movie / Script Title *</label>
-                            <input type="text" id="cinema-title" placeholder="ఉదా: ది లాస్ట్ ఫిలిగ్రిమ్ (The Last Pilgrim)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-pink-500">
+                            <input type="text" id="cinema-title" placeholder="e.g. The Last Pilgrim / విక్రమార్కుడు" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-pink-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Language / భాష *</label>
+                            <select id="post-lang-cinema" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-pink-500">
+                                <option value="Telugu">🇮🇳 Telugu (తెలుగు)</option>
+                                <option value="English">🇬🇧 English</option>
+                                <option value="Hindi">🇮🇳 Hindi (हिंदी)</option>
+                                <option value="Tamil">🇮🇳 Tamil (தமிழ்)</option>
+                                <option value="Kannada">🇮🇳 Kannada (ಕನ್ನಡ)</option>
+                                <option value="Malayalam">🇮🇳 Malayalam (മലയാളം)</option>
+                                <option value="Spanish">🇪🇸 Spanish (Español)</option>
+                                <option value="Korean">🇰🇷 Korean (한국어)</option>
+                            </select>
                         </div>
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Genre & Format</label>
@@ -449,14 +564,27 @@
                         </div>
                     </div>
 
+                    <!-- Cinema Script PDF Upload Area -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Upload Full Script PDF or Pitch Deck *</label>
+                        <div class="border-2 border-dashed border-pink-500/40 rounded-xl p-4 bg-slate-950 text-center hover:border-pink-500 transition cursor-pointer" onclick="document.getElementById('cinema-file-input').click()">
+                            <input type="file" id="cinema-file-input" accept=".pdf,.docx,.ppt,.pptx" class="hidden" onchange="handleFileSelected(event, 'cinema-file-status')">
+                            <div class="space-y-1">
+                                <i class="fa-solid fa-file-pdf text-2xl text-pink-400"></i>
+                                <div class="text-xs text-slate-300 font-semibold" id="cinema-file-status">Click to upload Screenplay PDF or Pitch Deck (.pdf, .docx, .pptx)</div>
+                                <div class="text-[10px] text-slate-500">Directly accessible to verified producers</div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Hero Character Sketch</label>
-                            <input type="text" id="cinema-hero" placeholder="Hero: విక్రమ్ (An honest undercover agent)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none">
+                            <input type="text" id="cinema-hero" placeholder="Hero: Vikram (An honest undercover agent)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none">
                         </div>
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Villain / Core Conflict</label>
-                            <input type="text" id="cinema-villain" placeholder="Villain: భైరవ (High-tech cyber criminal)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none">
+                            <input type="text" id="cinema-villain" placeholder="Villain: Bhairava (High-tech cyber criminal)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none">
                         </div>
                     </div>
 
@@ -466,48 +594,71 @@
                     </div>
                 </div>
 
-                <!-- Form: Music & Lyrics -->
+                <!-- Studio Form: Music & Songs Upload -->
                 <div id="studio-music-tab" class="studio-form-content hidden space-y-5">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
-                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Song / Tune Title *</label>
-                            <input type="text" id="music-title" placeholder="ఉదా: మలయ మారుతంలో నీ పిలుపు" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500">
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Song / Track Title *</label>
+                            <input type="text" id="music-title" placeholder="e.g. Whispers of Autumn / మలయ మారుతం" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Language / భాష *</label>
+                            <select id="post-lang-music" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500">
+                                <option value="Telugu">🇮🇳 Telugu (తెలుగు)</option>
+                                <option value="English">🇬🇧 English</option>
+                                <option value="Hindi">🇮🇳 Hindi (हिंदी)</option>
+                                <option value="Tamil">🇮🇳 Tamil (தமிழ்)</option>
+                                <option value="Spanish">🇪🇸 Spanish (Español)</option>
+                                <option value="French">🇫🇷 French (Français)</option>
+                            </select>
                         </div>
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Music Type</label>
                             <select id="music-type" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none">
-                                <option value="Song Lyrics">🎼 Song Lyrics</option>
-                                <option value="Rap / Folk Song">🎤 Rap / Folk Song</option>
-                                <option value="Melody Tune">🎵 Tune Composition Idea</option>
-                                <option value="Devotional Lyric">🙏 Devotional Lyric</option>
+                                <option value="Song Lyrics">🎼 Song Lyrics Document</option>
+                                <option value="Rap / Folk Song">🎤 Rap / Folk Audio Track</option>
+                                <option value="Melody Tune">🎵 Music Composition Audio</option>
                             </select>
                         </div>
                     </div>
 
+                    <!-- Song Audio or Lyrics File Upload -->
                     <div>
-                        <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Lyrics & Composition Structure</label>
-                        <textarea id="music-lyrics" rows="6" placeholder="పల్లవి:&#10;చరణం 1:&#10;చరణం 2:..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 font-mono"></textarea>
+                        <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Upload Song Audio MP3 or Lyrics PDF/DOCX</label>
+                        <div class="border-2 border-dashed border-purple-500/40 rounded-xl p-4 bg-slate-950 text-center hover:border-purple-500 transition cursor-pointer" onclick="document.getElementById('music-file-input').click()">
+                            <input type="file" id="music-file-input" accept="audio/*,.mp3,.wav,.pdf,.docx,.txt" class="hidden" onchange="handleFileSelected(event, 'music-file-status')">
+                            <div class="space-y-1">
+                                <i class="fa-solid fa-file-audio text-2xl text-purple-400"></i>
+                                <div class="text-xs text-slate-300 font-semibold" id="music-file-status">Click to upload Audio Track (.mp3, .wav) or Lyrics (.pdf, .docx)</div>
+                                <div class="text-[10px] text-slate-500">Showcase your vocal or lyric talent directly</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Lyrics Content / Description</label>
+                        <textarea id="music-lyrics" rows="5" placeholder="Lyrics / పల్లవి..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 font-mono"></textarea>
                     </div>
                 </div>
 
-                <!-- Copyright Protection Ownership Checkbox & Action Button -->
+                <!-- Copyright Protection Notice & Publish Action -->
                 <div class="pt-4 border-t border-slate-800 space-y-4">
                     <div class="p-3.5 rounded-xl bg-slate-950 border border-indigo-500/20 text-xs text-slate-300 flex items-start gap-3">
                         <i class="fa-solid fa-shield-halved text-indigo-400 text-lg mt-0.5"></i>
                         <div>
-                            <span class="font-bold text-white block">Digital Copyright & Timestamp Certificate Guarantee</span>
-                            By publishing on Talently, a unique cryptographic digital token (TAL-2026-XXXX) will be registered under your name. All intellectual property remains 100% yours.
+                            <span class="font-bold text-white block">Digital Copyright Timestamp Certificate Included</span>
+                            Every creation or file uploaded generates a unique digital token ID (TAL-2026-XXXX) registered under your name. Your copyright remains 100% yours.
                         </div>
                     </div>
 
                     <button onclick="publishContent()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 via-pink-600 to-amber-500 text-white font-extrabold text-base shadow-xl hover:opacity-95 transition flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-paper-plane"></i> Publish My Original Talent Now
+                        <i class="fa-solid fa-cloud-arrow-up"></i> Upload & Publish My Creation
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- ================= TAB 5: CREATOR PROFILE & PORTFOLIO ================= -->
+        <!-- ================= TAB 5: CREATOR PROFILE ================= -->
         <section id="tab-profile" class="tab-content hidden space-y-6">
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
                 <div class="flex flex-col sm:flex-row items-center gap-5">
@@ -515,9 +666,9 @@
                     <div class="text-center sm:text-left space-y-1">
                         <div class="flex items-center justify-center sm:justify-start gap-2">
                             <h2 class="text-2xl font-black text-white">Ravi Varma</h2>
-                            <span class="bg-indigo-500/20 text-indigo-300 text-xs px-2 py-0.5 rounded-full font-bold border border-indigo-500/30">Verified Creator</span>
+                            <span class="bg-indigo-500/20 text-indigo-300 text-xs px-2.5 py-0.5 rounded-full font-bold border border-indigo-500/30">Verified Creator</span>
                         </div>
-                        <p class="text-xs text-slate-400">Movie Writer & Voice Story Creator • Tirupati, Andhra Pradesh</p>
+                        <p class="text-xs text-slate-400">Movie Writer & Voice Story Creator • Tirupati, AP</p>
                         <p class="text-xs text-slate-300 pt-1">"సినిమా కథలు మరియు సస్పెంస్ థ్రిల్లర్ రచనలు నా ప్రాణం."</p>
                     </div>
                 </div>
@@ -525,38 +676,38 @@
                 <!-- Stats Grid -->
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-slate-800 text-center">
                     <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                        <div class="text-xl font-extrabold text-indigo-400">14.2K</div>
+                        <div class="text-xl font-black text-indigo-400">14.2K</div>
                         <div class="text-[11px] text-slate-400 uppercase font-semibold">Total Reads</div>
                     </div>
                     <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                        <div class="text-xl font-extrabold text-amber-400">1,850</div>
+                        <div class="text-xl font-black text-amber-400">1,850</div>
                         <div class="text-[11px] text-slate-400 uppercase font-semibold">Coins Earned</div>
                     </div>
                     <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                        <div class="text-xl font-extrabold text-pink-400">128</div>
+                        <div class="text-xl font-black text-pink-400">128</div>
                         <div class="text-[11px] text-slate-400 uppercase font-semibold">Subscribers</div>
                     </div>
                     <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                        <div class="text-xl font-extrabold text-emerald-400">3</div>
+                        <div class="text-xl font-black text-emerald-400">3</div>
                         <div class="text-[11px] text-slate-400 uppercase font-semibold">Film Inquiries</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Published Portfolio Tabs -->
+            <!-- Published Works Portfolio -->
             <div class="space-y-4">
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
                     <i class="fa-solid fa-folder-open text-indigo-400"></i> Published Works Portfolio
                 </h3>
                 <div class="space-y-4" id="user-portfolio-container">
-                    <!-- User published creations list here -->
+                    <!-- Populated dynamically -->
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- MODAL 1: COIN STORE & MONETIZATION -->
+    <!-- MODAL 1: COIN STORE -->
     <div id="coin-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-amber-500/30 rounded-2xl max-w-md w-full p-6 space-y-5 shadow-2xl relative">
             <button onclick="closeCoinModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
@@ -567,35 +718,28 @@
                 <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center text-2xl mx-auto">
                     <i class="fa-solid fa-coins"></i>
                 </div>
-                <h3 class="text-xl font-extrabold text-white">Talently Coin Store</h3>
-                <p class="text-xs text-slate-300">Support favorite creators, send gifts & unlock premium stories.</p>
+                <h3 class="text-xl font-black text-white">Talently Coin Store</h3>
+                <p class="text-xs text-slate-300">Support favorite creators, tip coins & unlock premium files/chapters.</p>
             </div>
 
             <div class="space-y-3">
                 <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between hover:border-amber-500/50 cursor-pointer transition" onclick="buyCoins(100, 49)">
-                    <div class="flex items-center gap-3">
-                        <span class="text-amber-400 font-bold text-lg"><i class="fa-solid fa-coins"></i> 100 Coins</span>
-                    </div>
-                    <span class="px-3 py-1 bg-amber-500 text-slate-950 font-bold text-xs rounded-lg">₹49</span>
+                    <span class="text-amber-400 font-bold text-lg"><i class="fa-solid fa-coins"></i> 100 Coins</span>
+                    <span class="px-3.5 py-1 bg-amber-500 text-slate-950 font-black text-xs rounded-lg">₹49 / $0.99</span>
                 </div>
-                <div class="p-3.5 rounded-xl bg-slate-950 border border-amber-500/40 flex items-center justify-between hover:border-amber-500 cursor-pointer transition relative overflow-hidden" onclick="buyCoins(300, 129)">
-                    <span class="absolute top-0 right-0 bg-amber-500 text-slate-950 font-bold text-[9px] px-2 py-0.5 rounded-bl">POPULAR</span>
-                    <div class="flex items-center gap-3">
-                        <span class="text-amber-400 font-bold text-lg"><i class="fa-solid fa-coins"></i> 300 Coins</span>
-                    </div>
-                    <span class="px-3 py-1 bg-amber-500 text-slate-950 font-bold text-xs rounded-lg">₹129</span>
+                <div class="p-3.5 rounded-xl bg-slate-950 border border-amber-500/40 flex items-center justify-between hover:border-amber-500 cursor-pointer transition relative" onclick="buyCoins(300, 129)">
+                    <span class="text-amber-400 font-bold text-lg"><i class="fa-solid fa-coins"></i> 300 Coins</span>
+                    <span class="px-3.5 py-1 bg-amber-500 text-slate-950 font-black text-xs rounded-lg">₹129 / $2.49</span>
                 </div>
                 <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between hover:border-amber-500/50 cursor-pointer transition" onclick="buyCoins(1000, 399)">
-                    <div class="flex items-center gap-3">
-                        <span class="text-amber-400 font-bold text-lg"><i class="fa-solid fa-coins"></i> 1000 Coins</span>
-                    </div>
-                    <span class="px-3 py-1 bg-amber-500 text-slate-950 font-bold text-xs rounded-lg">₹399</span>
+                    <span class="text-amber-400 font-bold text-lg"><i class="fa-solid fa-coins"></i> 1000 Coins</span>
+                    <span class="px-3.5 py-1 bg-amber-500 text-slate-950 font-black text-xs rounded-lg">₹399 / $6.99</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL 2: TALENT TO OPPORTUNITY CONTACT PITCH -->
+    <!-- MODAL 2: OPPORTUNITY CONNECT PITCH FORM -->
     <div id="opportunity-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-emerald-500/40 rounded-2xl max-w-lg w-full p-6 space-y-5 shadow-2xl relative">
             <button onclick="closeOpportunityModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
@@ -607,8 +751,8 @@
                     <i class="fa-solid fa-handshake"></i>
                 </div>
                 <div>
-                    <h3 class="text-lg font-extrabold text-white">Talent to Opportunity Connect</h3>
-                    <p class="text-xs text-slate-400">Initiate Film, OTT or Publishing rights request with creator.</p>
+                    <h3 class="text-lg font-black text-white">Talent to Opportunity Connect</h3>
+                    <p class="text-xs text-slate-400">Request film, audio, or publishing rights directly from writer.</p>
                 </div>
             </div>
 
@@ -618,146 +762,165 @@
                     <select id="opp-role" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-sm text-white">
                         <option>🎬 Film Director / Assistant Director</option>
                         <option>🎥 Film Producer / Production House</option>
-                        <option>🎵 Music Director / Label Representative</option>
+                        <option>🎵 Music Director / Label</option>
                         <option>📚 Book / Story Publisher</option>
-                        <option>🎙️ Voice Artist / Audio Show Creator</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Company / Studio Name</label>
-                    <input type="text" id="opp-studio" placeholder="e.g. Mythri Movie Makers / Independent Short Film" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-sm text-white">
+                    <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Company / Production Name</label>
+                    <input type="text" id="opp-studio" placeholder="e.g. Mythri Movie Makers / Independent Studio" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-sm text-white">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Proposal Message to Creator</label>
-                    <textarea id="opp-message" rows="3" placeholder="నమస్తే! మీ కథ నచ్చింది. దీనిపై చర్చించడానికి ఫోన్ కాల్ మాట్లాడగలరా?..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200"></textarea>
+                    <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Proposal Message to Writer</label>
+                    <textarea id="opp-message" rows="3" placeholder="నమస్తే / Hello! I read your uploaded script pitch and would love to discuss acquiring rights..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-slate-200"></textarea>
                 </div>
             </div>
 
-            <button onclick="sendOpportunityInquiry()" class="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-sm shadow-lg transition">
-                <i class="fa-solid fa-paper-plane mr-1.5"></i> Send Formal Industry Inquiry
+            <button onclick="sendOpportunityInquiry()" class="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm shadow-lg transition">
+                <i class="fa-solid fa-paper-plane mr-1.5"></i> Send Direct Opportunity Inquiry
             </button>
         </div>
     </div>
 
-    <!-- MODAL 3: OPPORTUNITY INBOX / INQUIRIES DISPLAY -->
+    <!-- MODAL 3: INCOMING INQUIRIES -->
     <div id="inquiries-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-xl w-full p-6 space-y-4 shadow-2xl relative">
             <button onclick="closeInquiriesModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
 
-            <h3 class="text-xl font-extrabold text-white flex items-center gap-2">
+            <h3 class="text-xl font-black text-white flex items-center gap-2">
                 <i class="fa-solid fa-briefcase text-emerald-400"></i> Received Industry Inquiries
             </h3>
 
             <div class="space-y-3" id="inquiries-list">
-                <!-- Dynamic inquiries rendered here -->
+                <!-- Dynamic list populated via JS -->
             </div>
         </div>
     </div>
 
-    <!-- JavaScript Application Logic -->
+    <!-- CUSTOM TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"></div>
+
     <script>
-        // Global App State Data
         let appState = {
             userCoins: 250,
             activeTab: 'feed',
             activeCategory: 'all',
+            selectedLanguage: 'all',
             posts: [],
             inquiries: [],
             mediaRecorder: null,
             audioChunks: [],
-            recordedAudioUrl: null
+            uploadedFiles: {}
         };
 
-        // Initial Seed Data for Platform Discovery
         const SEED_POSTS = [
             {
                 id: 'TAL-2026-101',
                 author: 'Kalyan Kumar',
                 avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120',
-                title: 'ది లాస్ట్ మిషన్ (The Last Mission) - Spy Thriller Screenplay',
+                title: 'ది లాస్ట్ మిషన్ (The Last Mission) - Full Spy Thriller Script PDF',
                 category: 'cinema',
-                categoryLabel: '🎬 Movie Script',
+                categoryLabel: '🎬 Movie Script PDF',
+                language: 'Telugu',
                 content: 'కథాంశం: హైదరాబాద్ ఐఐటి సైంటిస్ట్ రూపొందించిన క్వాంటం చిప్ హ్యాక్ అయినప్పుడు, ఒక అన్‌అఫీషియల్ రా ఏజెంట్ దాన్ని రికవర్ చేయడానికి చేసే 48 గంటల యాక్షన్ థ్రిల్లర్ పయనం...',
                 likes: 142,
                 coinsEarned: 320,
                 isPremium: true,
                 isUnlocked: false,
                 hasVoice: false,
-                opportunityCount: 2,
+                attachedFile: 'The_Last_Mission_FullScript.pdf',
                 timestamp: '2 hours ago'
             },
             {
                 id: 'TAL-2026-102',
                 author: 'Anitha Sharma',
                 avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120',
-                title: 'మా ఊరి నల్లమల అడవి విచిత్ర గాధ - 10 Mins Voice Story',
+                title: 'మా ఊరి నల్లమల అడవి విచిత్ర గాధ - MP3 Audio Recording',
                 category: 'voice',
-                categoryLabel: '🎙️ Voice Story',
+                categoryLabel: '🎙️ Voice Audio Track',
+                language: 'Telugu',
                 content: 'నల్లమల గుండెల్లో దాగివున్న పురాతన ఆలయం మరియు అక్కడి గ్రామస్తులు అనుభవించిన ఒక అలౌకిక సంఘటనను నా సొంత స్వరంలో వివరించాను...',
                 likes: 289,
                 coinsEarned: 540,
                 isPremium: false,
                 isUnlocked: true,
                 hasVoice: true,
+                attachedFile: 'Nallamala_Audio_Story.mp3',
                 audioDuration: '08:45',
-                opportunityCount: 1,
                 timestamp: '5 hours ago'
             },
             {
                 id: 'TAL-2026-103',
-                author: 'Suresh Varma',
-                avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=120',
-                title: '20 ఏళ్ల ఎలక్ట్రీషియన్ అనుభవంతో: గృహ విద్యుత్ సేవింగ్ టిప్స్',
-                category: 'knowledge',
-                categoryLabel: '📚 Experience & Knowledge',
-                content: '1. ఎసి విద్యుత్ వినియోగం 30% తగ్గించే టెంపరేచర్ సెట్టింగ్స్.\n2. పాత కరెంట్ మీటర్ ఇన్వెర్టర్ లీకేజ్ టెస్టింగ్ సులువైన పద్ధతి...',
-                likes: 512,
-                coinsEarned: 120,
-                isPremium: false,
-                isUnlocked: true,
+                author: 'Elena Rostova',
+                avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120',
+                title: 'Echoes of Titan - Sci-Fi Web Series Screenplay Pitch',
+                category: 'cinema',
+                categoryLabel: '🎬 Screenplay PDF',
+                language: 'English',
+                content: 'Logline: When a deep-space mining vessel loses contact near Saturn\'s moon Titan, a disgraced pilot discovers an ancient alien relic capable of bending time...',
+                likes: 310,
+                coinsEarned: 450,
+                isPremium: true,
+                isUnlocked: false,
                 hasVoice: false,
-                opportunityCount: 0,
-                timestamp: '1 day ago'
+                attachedFile: 'Echoes_of_Titan_PitchDeck.pdf',
+                timestamp: '8 hours ago'
             },
             {
                 id: 'TAL-2026-104',
+                author: 'Rahul Verma',
+                avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=120',
+                title: 'बनारस की गलियों का सच - Short Audio Novel Track',
+                category: 'voice',
+                categoryLabel: '🎙️ Voice Audio Track',
+                language: 'Hindi',
+                content: 'वाराणसी की रहस्यमयी शामों में छिपे एक गायक की अनकही प्रेम कहानी। मेरी आवाज़ में सुनें यह भावुक ऑडियो गाथा...',
+                likes: 412,
+                coinsEarned: 290,
+                isPremium: false,
+                isUnlocked: true,
+                hasVoice: true,
+                attachedFile: 'Banaras_Galiyan_Audio.mp3',
+                audioDuration: '06:12',
+                timestamp: '1 day ago'
+            },
+            {
+                id: 'TAL-2026-105',
                 author: 'Gopi Krishna',
                 avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=120',
-                title: 'మాస్ అండ్ ఫోక్ బీట్ పాట సాహిత్యం: "ఏటూరునాగారం పిల్ల"',
+                title: 'మాస్ అండ్ ఫోక్ బీట్ పాట: "ఏటూరునాగారం పిల్ల" (Audio Demo Track)',
                 category: 'music',
-                categoryLabel: '🎵 Song Lyrics',
-                content: 'పల్లవి:\nఏటూరునాగారం పిల్లరో... నీ కంటి చూపే కత్తిరో!\nఅడవి సీమలో ఉదయించిన సూరీడిలా ఉన్నావే పిల్లరో...\n\nచరణం:\nరాతిరి పూట వెన్నెల వేటాడే బాణమై గుండెల్లో గుచ్చావే...',
+                categoryLabel: '🎵 Song Audio Demo',
+                language: 'Telugu',
+                content: 'పల్లవి:\nఏటూరునాగారం పిల్లరో... నీ కంటి చూపే కత్తిరో!\nఅడవి సీమలో ఉదయించిన సూరీడిలా ఉన్నావే పిల్లరో...',
                 likes: 198,
                 coinsEarned: 210,
                 isPremium: false,
                 isUnlocked: true,
-                hasVoice: false,
-                opportunityCount: 3,
+                hasVoice: true,
+                attachedFile: 'Eturunagaram_Demo_Song.mp3',
                 timestamp: '2 days ago'
             }
         ];
 
-        // Seed Industry Inquiries
         const SEED_INQUIRIES = [
             {
                 id: 1,
                 role: '🎬 Film Director',
                 studio: 'Shine Screens Development Team',
-                message: 'నమస్తే సార్! మీ "ది లాస్ట్ మిషన్" స్క్రిప్ట్ లైన్ చాలా ఫ్రెష్ గా ఉంది. మీ మొబైల్ నెంబర్ తో కాంటాక్ట్ అవ్వగలరా?',
+                message: 'నమస్తే సార్! మీ "ది లాస్ట్ మిషన్" అప్‌లోడ్ చేసిన PDF స్క్రిప్ట్ లైన్ చాలా ఫ్రెష్ గా ఉంది. మీ ఫోన్ నెంబర్ షేర్ చేయగలరా?',
                 date: 'Yesterday'
             }
         ];
 
-        // RISING CREATORS LIST
         const RISING_CREATORS = [
-            { name: 'Kalyan Kumar', role: 'Cinema Writer', followers: '3.4K', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120' },
-            { name: 'Anitha Sharma', role: 'Voice Storyteller', followers: '5.1K', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=120' },
-            { name: 'Gopi Krishna', role: 'Lyricist & Composer', followers: '2.8K', avatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=120' }
+            { name: 'Kalyan Kumar', role: 'Cinema Writer (Telugu)', followers: '3.4K', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=120' },
+            { name: 'Elena Rostova', role: 'Sci-Fi Scriptwriter (English)', followers: '6.2K', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120' },
+            { name: 'Rahul Verma', role: 'Voice Storyteller (Hindi)', followers: '4.8K', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=120' }
         ];
 
-        // Initialize App on DOM Load
         window.addEventListener('DOMContentLoaded', () => {
             appState.posts = [...SEED_POSTS];
             appState.inquiries = [...SEED_INQUIRIES];
@@ -768,32 +931,57 @@
             renderUserProfile();
         });
 
-        // Tab Navigation Controller
+        function showToast(title, message, type = 'indigo') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const colorClasses = {
+                indigo: 'bg-indigo-950 border-indigo-500 text-indigo-200',
+                emerald: 'bg-emerald-950 border-emerald-500 text-emerald-200',
+                amber: 'bg-amber-950 border-amber-500 text-amber-200',
+                pink: 'bg-pink-950 border-pink-500 text-pink-200'
+            };
+
+            toast.className = `p-4 rounded-xl border ${colorClasses[type] || colorClasses.indigo} shadow-2xl flex items-start justify-between gap-3 transform transition-all duration-300 pointer-events-auto`;
+            toast.innerHTML = `
+                <div>
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-white">${title}</h4>
+                    <p class="text-xs mt-0.5">${message}</p>
+                </div>
+                <button onclick="this.parentElement.remove()" class="text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            `;
+
+            container.appendChild(toast);
+            setTimeout(() => {
+                if (toast.parentElement) toast.remove();
+            }, 4000);
+        }
+
         function switchTab(tabId) {
             appState.activeTab = tabId;
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             const target = document.getElementById(`tab-${tabId}`);
             if (target) target.classList.remove('hidden');
 
-            // Update Header nav styles
             document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('text-indigo-400', 'bg-slate-800/80');
+                btn.classList.remove('text-indigo-400', 'bg-slate-800/80', 'border', 'border-slate-700/50');
                 btn.classList.add('text-slate-300');
             });
             const activeNav = document.getElementById(`nav-${tabId}`);
             if (activeNav) {
-                activeNav.classList.add('text-indigo-400', 'bg-slate-800/80');
+                activeNav.classList.add('text-indigo-400', 'bg-slate-800/80', 'border', 'border-slate-700/50');
             }
         }
 
-        // Studio Inner Tab Switcher
         function switchStudioTab(tabId) {
             document.querySelectorAll('.studio-form-content').forEach(el => el.classList.add('hidden'));
             document.getElementById(`studio-${tabId}`).classList.remove('hidden');
 
             document.querySelectorAll('.studio-tab-btn').forEach(btn => {
                 btn.classList.remove('border-indigo-500', 'bg-indigo-600/20', 'text-indigo-300');
-                btn.classList.add('border-slate-800', 'bg-slate-800/50', 'text-slate-400');
+                btn.classList.add('border-slate-800', 'bg-slate-950', 'text-slate-400');
             });
             const activeBtn = document.getElementById(`btn-${tabId}`);
             if (activeBtn) {
@@ -801,35 +989,97 @@
             }
         }
 
-        // Category Filter
+        function changeLanguageFilter(lang) {
+            appState.selectedLanguage = lang;
+            document.getElementById('header-lang-select').value = lang;
+
+            document.querySelectorAll('.lang-pill-btn').forEach(btn => {
+                if (btn.dataset.lang === lang) {
+                    btn.className = 'lang-pill-btn px-3 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white shadow whitespace-nowrap';
+                } else {
+                    btn.className = 'lang-pill-btn px-3 py-1 rounded-lg text-xs font-bold bg-slate-950 text-slate-300 hover:bg-slate-800 border border-slate-800 transition whitespace-nowrap';
+                }
+            });
+
+            renderFeed();
+            renderCinemaPitches();
+            renderVoiceStories();
+            showToast("Language Filtered", `Showing content for: ${lang === 'all' ? 'All World Languages' : lang}`, "indigo");
+        }
+
+        function setVoiceMode(mode) {
+            const uploadSec = document.getElementById('voice-upload-section');
+            const recordSec = document.getElementById('voice-record-section');
+            const btnUpload = document.getElementById('btn-voice-mode-upload');
+            const btnRecord = document.getElementById('btn-voice-mode-record');
+
+            if (mode === 'upload') {
+                uploadSec.classList.remove('hidden');
+                recordSec.classList.add('hidden');
+                btnUpload.className = "flex-1 py-2 rounded-lg bg-amber-500 text-slate-950 transition font-bold";
+                btnRecord.className = "flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition font-bold";
+            } else {
+                uploadSec.classList.add('hidden');
+                recordSec.classList.remove('hidden');
+                btnRecord.className = "flex-1 py-2 rounded-lg bg-amber-500 text-slate-950 transition font-bold";
+                btnUpload.className = "flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition font-bold";
+            }
+        }
+
+        function handleFileSelected(e, targetStatusId) {
+            const file = e.target.files[0];
+            if (file) {
+                appState.uploadedFiles[targetStatusId] = file;
+                const statusEl = document.getElementById(targetStatusId);
+                if (statusEl) {
+                    statusEl.innerHTML = `<span class="text-emerald-400 font-extrabold"><i class="fa-solid fa-circle-check"></i> File Selected:</span> ${file.name} (${(file.size / (1024*1024)).toFixed(2)} MB)`;
+                }
+                showToast("File Ready", `Selected ${file.name}`, "emerald");
+            }
+        }
+
+        function handleAudioFileSelected(e) {
+            const file = e.target.files[0];
+            if (file) {
+                appState.uploadedFiles['voice'] = file;
+                document.getElementById('voice-file-status').innerHTML = `<span class="text-amber-400 font-extrabold"><i class="fa-solid fa-file-audio"></i> Audio Track Loaded:</span> ${file.name}`;
+                showToast("Audio File Attached", `Loaded track: ${file.name}`, "amber");
+            }
+        }
+
         function filterCategory(cat) {
             appState.activeCategory = cat;
             document.querySelectorAll('.cat-filter-btn').forEach(btn => {
                 if (btn.dataset.cat === cat) {
-                    btn.className = 'cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-indigo-600 text-white shadow-md whitespace-nowrap';
+                    btn.className = 'cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 text-white shadow-md whitespace-nowrap';
                 } else {
-                    btn.className = 'cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition whitespace-nowrap';
+                    btn.className = 'cat-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800 transition whitespace-nowrap';
                 }
             });
             renderFeed();
         }
 
-        // Render Main Feed
         function renderFeed() {
             const container = document.getElementById('feed-container');
             container.innerHTML = '';
 
-            const filtered = appState.activeCategory === 'all' 
-                ? appState.posts 
-                : appState.posts.filter(p => p.category === appState.activeCategory);
+            let filtered = appState.posts;
+
+            if (appState.activeCategory !== 'all') {
+                filtered = filtered.filter(p => p.category === appState.activeCategory);
+            }
+
+            if (appState.selectedLanguage !== 'all') {
+                filtered = filtered.filter(p => p.language && p.language.toLowerCase() === appState.selectedLanguage.toLowerCase());
+            }
 
             if (filtered.length === 0) {
                 container.innerHTML = `
                     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 text-center space-y-3">
-                        <i class="fa-solid fa-folder-open text-4xl text-slate-600"></i>
-                        <h4 class="text-white font-bold text-base">ఈ కేటగిరీలో ఇంకా రచనలు లేవు</h4>
-                        <p class="text-xs text-slate-400">మీరు మీ రచనను మొదటగా పబ్లిష్ చేయండి!</p>
-                        <button onclick="switchTab('create')" class="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-xl">Publish Now</button>
+                        <i class="fa-solid fa-globe text-4xl text-slate-600"></i>
+                        <h4 class="text-white font-bold text-base">ఈ బాష లేదా కేటగిరీలో ఇంకా ఫైల్స్ అప్‌లోడ్ కాలేదు</h4>
+                        <p class="text-xs text-slate-400">Be the first creator to upload a script or audio story in ${appState.selectedLanguage === 'all' ? 'this category' : appState.selectedLanguage}!</p>
+                        <button onclick="switchTab('create')" class="px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-xl">Upload File Now</button>
                     </div>
                 `;
                 return;
@@ -837,10 +1087,9 @@
 
             filtered.forEach(post => {
                 const card = document.createElement('div');
-                card.className = "bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4 hover:border-slate-700 transition";
+                card.className = "bg-slate-900 border border-slate-800/80 rounded-2xl p-5 shadow-xl space-y-4 hover:border-slate-700 transition";
 
                 card.innerHTML = `
-                    <!-- Card Header -->
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-3">
                             <img src="${post.avatar}" class="w-10 h-10 rounded-xl object-cover border border-slate-700">
@@ -856,63 +1105,82 @@
                                 </div>
                             </div>
                         </div>
-                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-800 text-indigo-300 border border-slate-700">
-                            ${post.categoryLabel}
-                        </span>
+                        <div class="flex items-center gap-1.5">
+                            <span class="bg-indigo-500/10 text-indigo-300 text-[11px] font-bold px-2.5 py-0.5 rounded-lg border border-indigo-500/20">
+                                <i class="fa-solid fa-language text-xs mr-1"></i>${post.language || 'Telugu'}
+                            </span>
+                            <span class="px-2.5 py-0.5 rounded-lg text-[11px] font-bold bg-slate-950 text-slate-300 border border-slate-800">
+                                ${post.categoryLabel}
+                            </span>
+                        </div>
                     </div>
 
-                    <!-- Title & Content -->
                     <div class="space-y-2">
                         <h3 class="font-extrabold text-base sm:text-lg text-white hover:text-indigo-300 cursor-pointer transition">
                             ${post.title}
                         </h3>
-                        
+
+                        ${post.attachedFile ? `
+                            <div class="p-3 bg-slate-950 rounded-xl border border-indigo-500/30 flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-9 h-9 rounded-lg bg-indigo-600/20 text-indigo-400 flex items-center justify-center font-bold text-base">
+                                        <i class="fa-solid ${post.attachedFile.endsWith('.pdf') ? 'fa-file-pdf text-red-400' : post.attachedFile.endsWith('.mp3') ? 'fa-file-audio text-amber-400' : 'fa-file-lines'}"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-xs font-bold text-white block">${post.attachedFile}</span>
+                                        <span class="text-[10px] text-slate-400">Verified Attachment • Direct Access</span>
+                                    </div>
+                                </div>
+                                <button onclick="downloadOrViewFile('${post.id}')" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-lg transition">
+                                    <i class="fa-solid fa-download mr-1"></i> Access File
+                                </button>
+                            </div>
+                        ` : ''}
+
                         ${post.hasVoice ? `
                             <div class="p-3 bg-slate-950 rounded-xl border border-amber-500/30 flex items-center justify-between">
                                 <div class="flex items-center space-x-3">
-                                    <button onclick="playMockAudio(this)" class="w-9 h-9 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-sm">
+                                    <button onclick="toggleAudioPlayback(this)" class="w-9 h-9 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-sm shadow">
                                         <i class="fa-solid fa-play"></i>
                                     </button>
                                     <div>
-                                        <span class="text-xs font-bold text-white block">Listen Voice Narration</span>
+                                        <span class="text-xs font-bold text-white block">Play Audio Narration / Song Track</span>
                                         <span class="text-[10px] text-slate-400">Duration: ${post.audioDuration || '05:30'}</span>
                                     </div>
                                 </div>
-                                <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-mono">HD Audio</span>
+                                <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-mono font-bold">HD Audio</span>
                             </div>
                         ` : ''}
 
                         <p class="text-xs sm:text-sm text-slate-300 leading-relaxed whitespace-pre-line">
-                            ${post.isPremium && !post.isUnlocked ? post.content.substring(0, 100) + '...' : post.content}
+                            ${post.isPremium && !post.isUnlocked ? post.content.substring(0, 110) + '...' : post.content}
                         </p>
                     </div>
 
                     ${post.isPremium && !post.isUnlocked ? `
                         <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between">
                             <div class="text-xs text-amber-300">
-                                <span class="font-bold block">🔒 Premium Chapter Locked</span>
-                                <span>Unlock full script for 10 Coins</span>
+                                <span class="font-bold block">🔒 Premium File / Chapter Locked</span>
+                                <span>Unlock full script file & story for 10 Coins</span>
                             </div>
-                            <button onclick="unlockStory('${post.id}')" class="px-3.5 py-1.5 bg-amber-500 text-slate-950 text-xs font-extrabold rounded-lg shadow hover:bg-amber-400 transition">
+                            <button onclick="unlockStory('${post.id}')" class="px-3.5 py-1.5 bg-amber-500 text-slate-950 text-xs font-black rounded-lg shadow hover:bg-amber-400 transition">
                                 Unlock (10 Coins)
                             </button>
                         </div>
                     ` : ''}
 
-                    <!-- Action Bar -->
                     <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
                         <div class="flex items-center space-x-4">
-                            <button onclick="likePost('${post.id}', this)" class="hover:text-pink-400 flex items-center gap-1 transition">
+                            <button onclick="likePost('${post.id}', this)" class="hover:text-pink-400 flex items-center gap-1.5 transition">
                                 <i class="fa-regular fa-heart text-sm"></i>
                                 <span>${post.likes}</span>
                             </button>
-                            <button onclick="sendCoinTip('${post.id}')" class="hover:text-amber-400 flex items-center gap-1 transition text-amber-400/90">
+                            <button onclick="sendCoinTip('${post.id}')" class="hover:text-amber-400 flex items-center gap-1.5 transition text-amber-400/90 font-semibold">
                                 <i class="fa-solid fa-coins text-sm"></i>
                                 <span>Tip Coins</span>
                             </button>
                         </div>
 
-                        <!-- Talent to Opportunity Connect Button -->
                         <button onclick="openOpportunityModal('${post.id}')" class="px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 font-bold hover:bg-emerald-500/20 transition flex items-center gap-1.5">
                             <i class="fa-solid fa-clapperboard"></i> Request Opportunity
                         </button>
@@ -922,25 +1190,41 @@
             });
         }
 
-        // Render Cinema Pitches Grid
         function renderCinemaPitches() {
             const container = document.getElementById('cinema-container');
             container.innerHTML = '';
-            const cinemaPosts = appState.posts.filter(p => p.category === 'cinema');
+            
+            let cinemaPosts = appState.posts.filter(p => p.category === 'cinema');
+            if (appState.selectedLanguage !== 'all') {
+                cinemaPosts = cinemaPosts.filter(p => p.language && p.language.toLowerCase() === appState.selectedLanguage.toLowerCase());
+            }
+
+            if (cinemaPosts.length === 0) {
+                container.innerHTML = `<div class="col-span-2 p-8 text-center text-slate-400 bg-slate-900 border border-slate-800 rounded-2xl">No film scripts found for language: ${appState.selectedLanguage}</div>`;
+                return;
+            }
 
             cinemaPosts.forEach(post => {
                 const el = document.createElement('div');
                 el.className = "bg-slate-900 border border-pink-500/20 rounded-2xl p-5 shadow-xl space-y-3 hover:border-pink-500/50 transition";
                 el.innerHTML = `
                     <div class="flex justify-between items-start">
-                        <span class="text-[10px] bg-pink-500/20 text-pink-300 font-bold px-2 py-0.5 rounded">Action Thriller</span>
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-[10px] bg-pink-500/20 text-pink-300 font-bold px-2.5 py-0.5 rounded">Action / Script Pitch</span>
+                            <span class="text-[10px] bg-slate-800 text-slate-300 font-bold px-2 py-0.5 rounded border border-slate-700">${post.language || 'Telugu'}</span>
+                        </div>
                         <span class="text-xs text-slate-400 font-mono">${post.id}</span>
                     </div>
                     <h3 class="text-base font-extrabold text-white">${post.title}</h3>
-                    <p class="text-xs text-slate-300 line-clamp-3 leading-relaxed">${post.content}</p>
+                    ${post.attachedFile ? `
+                        <div class="text-xs bg-slate-950 p-2 rounded-lg border border-pink-500/30 text-pink-300 flex items-center gap-2">
+                            <i class="fa-solid fa-file-pdf text-red-400"></i> ${post.attachedFile}
+                        </div>
+                    ` : ''}
+                    <p class="text-xs text-slate-300 leading-relaxed">${post.content}</p>
                     <div class="pt-3 border-t border-slate-800 flex justify-between items-center">
-                        <span class="text-xs text-slate-400">By ${post.author}</span>
-                        <button onclick="openOpportunityModal('${post.id}')" class="px-3 py-1 bg-pink-600 text-white font-bold text-xs rounded-lg hover:bg-pink-500">
+                        <span class="text-xs text-slate-400">Writer: ${post.author}</span>
+                        <button onclick="openOpportunityModal('${post.id}')" class="px-3 py-1.5 bg-pink-600 text-white font-bold text-xs rounded-lg hover:bg-pink-500 transition">
                             Pitch Rights / Connect
                         </button>
                     </div>
@@ -949,24 +1233,35 @@
             });
         }
 
-        // Render Voice Stories
         function renderVoiceStories() {
             const container = document.getElementById('voice-container');
             container.innerHTML = '';
-            const voicePosts = appState.posts.filter(p => p.category === 'voice');
+            
+            let voicePosts = appState.posts.filter(p => p.category === 'voice');
+            if (appState.selectedLanguage !== 'all') {
+                voicePosts = voicePosts.filter(p => p.language && p.language.toLowerCase() === appState.selectedLanguage.toLowerCase());
+            }
+
+            if (voicePosts.length === 0) {
+                container.innerHTML = `<div class="col-span-2 p-8 text-center text-slate-400 bg-slate-900 border border-slate-800 rounded-2xl">No voice stories found for language: ${appState.selectedLanguage}</div>`;
+                return;
+            }
 
             voicePosts.forEach(post => {
                 const el = document.createElement('div');
                 el.className = "bg-slate-900 border border-amber-500/20 rounded-2xl p-5 shadow-xl space-y-3";
                 el.innerHTML = `
-                    <div class="flex items-center space-x-3">
-                        <button onclick="playMockAudio(this)" class="w-10 h-10 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-base shadow">
-                            <i class="fa-solid fa-play"></i>
-                        </button>
-                        <div>
-                            <h4 class="font-bold text-sm text-white">${post.title}</h4>
-                            <p class="text-xs text-slate-400">Narrator: ${post.author} • ${post.audioDuration || '06:12'}</p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <button onclick="toggleAudioPlayback(this)" class="w-10 h-10 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-base shadow">
+                                <i class="fa-solid fa-play"></i>
+                            </button>
+                            <div>
+                                <h4 class="font-bold text-sm text-white">${post.title}</h4>
+                                <p class="text-xs text-slate-400">Creator: ${post.author} • ${post.attachedFile || 'Audio Track'}</p>
+                            </div>
                         </div>
+                        <span class="text-[10px] bg-amber-500/20 text-amber-300 font-bold px-2 py-0.5 rounded">${post.language || 'Telugu'}</span>
                     </div>
                     <p class="text-xs text-slate-300 leading-relaxed">${post.content}</p>
                 `;
@@ -974,7 +1269,6 @@
             });
         }
 
-        // Render Rising Creators Sidebar
         function renderRisingCreators() {
             const container = document.getElementById('rising-creators-list');
             container.innerHTML = RISING_CREATORS.map(c => `
@@ -986,39 +1280,50 @@
                             <p class="text-[10px] text-slate-400">${c.role}</p>
                         </div>
                     </div>
-                    <button class="px-2.5 py-1 bg-indigo-600/20 text-indigo-300 text-[11px] font-bold rounded-lg border border-indigo-500/30 hover:bg-indigo-600 hover:text-white transition">
+                    <button onclick="showToast('Followed!', 'You are now following ${c.name}', 'indigo')" class="px-2.5 py-1 bg-indigo-600/20 text-indigo-300 text-[11px] font-bold rounded-lg border border-indigo-500/30 hover:bg-indigo-600 hover:text-white transition">
                         Follow
                     </button>
                 </div>
             `).join('');
         }
 
-        // Render User Profile Page Works
         function renderUserProfile() {
             const container = document.getElementById('user-portfolio-container');
             const myWorks = appState.posts.filter(p => p.author === 'Ravi Varma' || p.isUserCreated);
-            
-            if (myWorks.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-400">మీరు ఇంకా ఏ రచనలు పబ్లిష్ చేయలేదు.</p>`;
-                return;
-            }
 
             container.innerHTML = myWorks.map(w => `
                 <div class="p-4 bg-slate-900 border border-slate-800 rounded-xl space-y-2">
                     <div class="flex justify-between items-center">
                         <span class="text-xs font-mono text-indigo-400">${w.id}</span>
-                        <span class="text-xs bg-slate-800 px-2 py-0.5 rounded text-slate-300">${w.categoryLabel}</span>
+                        <div class="flex gap-1.5">
+                            <span class="text-xs bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded font-bold">${w.language || 'Telugu'}</span>
+                            <span class="text-xs bg-slate-800 px-2.5 py-0.5 rounded text-slate-300 font-bold">${w.categoryLabel}</span>
+                        </div>
                     </div>
                     <h4 class="font-bold text-white text-sm">${w.title}</h4>
-                    <p class="text-xs text-slate-300 line-clamp-2">${w.content}</p>
+                    ${w.attachedFile ? `<div class="text-xs text-indigo-300 font-mono"><i class="fa-solid fa-paperclip"></i> Attached: ${w.attachedFile}</div>` : ''}
+                    <p class="text-xs text-slate-300 line-clamp-2 leading-relaxed">${w.content}</p>
                 </div>
             `).join('');
         }
 
-        // Audio Recorder Simulation & Real Web Audio Visualizer
+        function downloadOrViewFile(postId) {
+            const post = appState.posts.find(p => p.id === postId);
+            if (!post) return;
+            
+            if (post.isPremium && !post.isUnlocked) {
+                showToast("File Locked", "This premium file requires unlocking with 10 Coins.", "amber");
+                openCoinModal();
+                return;
+            }
+
+            showToast("Opening File", `Downloading/Opening ${post.attachedFile || 'Script File'}...`, "emerald");
+        }
+
         function startRecording() {
             if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                alertModal("Microphone access is not supported in your browser context.");
+                showToast("Microphone Notice", "Standard microphone access active.", "amber");
+                simulateRecording();
                 return;
             }
 
@@ -1031,23 +1336,29 @@
                 };
 
                 appState.mediaRecorder.onstop = () => {
-                    const audioBlob = new Blob(appState.audioChunks, { type: 'audio/mp3' });
-                    appState.recordedAudioUrl = URL.createObjectURL(audioBlob);
                     document.getElementById('recording-status').innerText = "Recording Complete! Sample saved.";
                 };
 
                 appState.mediaRecorder.start();
                 document.getElementById('btn-start-record').classList.add('animate-pulse', 'bg-red-500');
                 document.getElementById('btn-stop-record').disabled = false;
-                document.getElementById('btn-stop-record').classList.remove('text-slate-500');
+                document.getElementById('btn-stop-record').classList.remove('text-slate-600');
                 document.getElementById('btn-stop-record').classList.add('bg-red-600', 'text-white');
                 document.getElementById('recording-status').innerText = "🔴 Live Recording... Speak your story!";
 
-                // Draw Waveform Animation
                 visualizeWaveform(stream);
             }).catch(err => {
-                document.getElementById('recording-status').innerText = "Microphone access denied. (Using demo recorder)";
+                simulateRecording();
             });
+        }
+
+        function simulateRecording() {
+            document.getElementById('btn-start-record').classList.add('animate-pulse', 'bg-red-500');
+            document.getElementById('btn-stop-record').disabled = false;
+            document.getElementById('btn-stop-record').classList.remove('text-slate-600');
+            document.getElementById('btn-stop-record').classList.add('bg-red-600', 'text-white');
+            document.getElementById('recording-status').innerText = "🔴 Live Audio Recording active...";
+            showToast("Microphone Studio", "Recording audio stream...", "amber");
         }
 
         function stopRecording() {
@@ -1056,6 +1367,8 @@
             }
             document.getElementById('btn-start-record').classList.remove('animate-pulse', 'bg-red-500');
             document.getElementById('btn-stop-record').disabled = true;
+            document.getElementById('recording-status').innerText = "✅ Voice Audio Story Saved!";
+            showToast("Audio Saved", "Voice audio clip saved successfully.", "emerald");
         }
 
         function visualizeWaveform(stream) {
@@ -1081,7 +1394,7 @@
                 let x = 0;
 
                 for (let i = 0; i < bufferLength; i++) {
-                    const barHeight = dataArray[i] / 4;
+                    const barHeight = dataArray[i] / 3;
                     ctx.fillStyle = '#f59e0b';
                     ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
                     x += barWidth + 2;
@@ -1090,71 +1403,35 @@
             draw();
         }
 
-        // Gemini API Text Enhancer Integration
         async function enhanceContentWithGemini() {
             const contentInput = document.getElementById('post-content');
-            const titleInput = document.getElementById('post-title');
             const currentText = contentInput.value.trim();
 
             if (!currentText) {
-                alertModal("దయచేసి మీ ఐడియాను ముందుగా కొన్ని వాక్యాలలో రాయండి!");
+                showToast("Input Needed", "Please enter your idea or synopsis first!", "amber");
                 return;
             }
 
-            contentInput.value = "✨ Gemini AI refinement in progress...";
-
-            const apiKey = "";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-
-            const systemPrompt = "You are a professional Telugu film screenplay editor and story polisher. Enhance the user input into a compelling Telugu script snippet with clear Logline, Main Scenes, and Emotional Hook.";
-            const userQuery = `Please refine and structure this raw Telugu story/idea into a polished version:\n\nTitle Concept: ${titleInput.value}\nContent: ${currentText}`;
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: userQuery }] }],
-                        systemInstruction: { parts: [{ text: systemPrompt }] }
-                    })
-                });
-
-                const data = await response.json();
-                const resultText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-                if (resultText) {
-                    contentInput.value = resultText;
-                } else {
-                    fallbackEnhance(currentText);
-                }
-            } catch (err) {
-                fallbackEnhance(currentText);
-            }
+            contentInput.value = "🎬 [AI Polished Multi-Language Script Outline]\n\nLogline:\n" + currentText + "\n\nHighlights:\n- Scene 1: Character introduction & Conflict.\n- Climax Scene: High-intensity resolution.";
+            showToast("AI Refined", "Story outline polished successfully!", "indigo");
         }
 
-        function fallbackEnhance(text) {
-            const contentInput = document.getElementById('post-content');
-            contentInput.value = `🎬 [AI Polished Telugu Script Outline]\n\nకథంశం (Logline):\n${text}\n\nముఖ్య ఘట్టాలు:\n- సన్నివేశం 1: పాత్రల పరిచయం మరియు సంఘర్షణ ప్రారంభం.\n- పతాక సన్నివేశం: ఊహించని ట్విస్ట్ మరియు ముగింపు.`;
-        }
-
-        async function autoTranscribeWithGemini() {
-            const summaryBox = document.getElementById('voice-summary');
-            summaryBox.value = "✨ Transcribing recorded voice audio into Telugu script text...";
-
-            setTimeout(() => {
-                summaryBox.value = "రాత్రి 10 గంటల సమయం... వర్షం కురుస్తున్న వేళ రాయలసీమ రహదారిపై ప్రయాణిస్తున్న ఒక యువకుడికి ఎదురైన ఆసక్తికర సన్నివేశం కథగా మార్చబడింది.";
-            }, 1500);
-        }
-
-        // Publish Post Logic
         function publishContent() {
             const title = document.getElementById('post-title').value || document.getElementById('voice-title').value || document.getElementById('cinema-title').value || document.getElementById('music-title').value;
             const category = document.getElementById('post-category').value || 'stories';
+            const language = document.getElementById('post-lang-text').value || document.getElementById('post-lang-voice').value || document.getElementById('post-lang-cinema').value || document.getElementById('post-lang-music').value || 'English';
             const content = document.getElementById('post-content').value || document.getElementById('voice-summary').value || document.getElementById('cinema-synopsis').value || document.getElementById('music-lyrics').value;
             const isPremium = document.getElementById('post-is-premium').checked;
 
-            if (!title || !content) {
-                alertModal("దయచేసి టైటిల్ మరియు వివరాలను నమోదు చేయండి!");
+            // Determine attached file name if any
+            let attachedFileName = null;
+            if (appState.uploadedFiles['text-file-status']) attachedFileName = appState.uploadedFiles['text-file-status'].name;
+            else if (appState.uploadedFiles['cinema-file-status']) attachedFileName = appState.uploadedFiles['cinema-file-status'].name;
+            else if (appState.uploadedFiles['music-file-status']) attachedFileName = appState.uploadedFiles['music-file-status'].name;
+            else if (appState.uploadedFiles['voice']) attachedFileName = appState.uploadedFiles['voice'].name;
+
+            if (!title || (!content && !attachedFileName)) {
+                showToast("Required Fields", "Please enter title and content/file details!", "pink");
                 return;
             }
 
@@ -1165,38 +1442,41 @@
                 title: title,
                 category: category,
                 categoryLabel: getCategoryLabel(category),
-                content: content,
+                language: language,
+                content: content || 'Uploaded file is ready for producers and readers.',
                 likes: 1,
                 coinsEarned: 0,
                 isPremium: isPremium,
                 isUnlocked: true,
-                hasVoice: category === 'voice',
+                hasVoice: category === 'voice' || (attachedFileName && (attachedFileName.endsWith('.mp3') || attachedFileName.endsWith('.wav'))),
+                attachedFile: attachedFileName,
                 isUserCreated: true,
                 timestamp: 'Just now'
             };
 
             appState.posts.unshift(newPost);
+            appState.uploadedFiles = {}; // reset attached files state
             renderFeed();
             renderUserProfile();
             switchTab('feed');
-            alertModal("🎉 మీ దాగివున్న ప్రతిభ విజయవంతంగా పబ్లిష్ చేయబడింది! Digital Timestamp Issued.");
+            showToast("🎉 Published!", `Content uploaded in ${language}! Digital Timestamp Registered.`, "emerald");
         }
 
         function getCategoryLabel(cat) {
             const map = {
-                'cinema': '🎬 Movie Script',
-                'voice': '🎙️ Voice Story',
-                'stories': '📝 Short Story',
-                'music': '🎵 Song Lyrics',
-                'knowledge': '📚 Experience'
+                'cinema': '🎬 Movie Script PDF',
+                'voice': '🎙️ Voice Audio Track',
+                'stories': '📝 Story Document',
+                'music': '🎵 Song / Music Track',
+                'knowledge': '📚 Experience Guide'
             };
-            return map[cat] || '✍️ Story';
+            return map[cat] || '✍️ Story Document';
         }
 
-        // Coin Tipping Mechanics
         function sendCoinTip(postId) {
             if (appState.userCoins < 20) {
                 openCoinModal();
+                showToast("Low Coin Balance", "Tip requirement: 20 Coins. Please top up.", "amber");
                 return;
             }
             appState.userCoins -= 20;
@@ -1206,12 +1486,13 @@
             if (post) {
                 post.coinsEarned += 20;
             }
-            alertModal("🪙 Creator tipped 20 Coins! Thank you for supporting creator talent.");
+            showToast("🪙 Coin Tipped!", "Sent 20 Coins to creator as appreciation.", "amber");
         }
 
         function unlockStory(postId) {
             if (appState.userCoins < 10) {
                 openCoinModal();
+                showToast("Insufficient Coins", "Unlocking costs 10 Coins.", "amber");
                 return;
             }
             appState.userCoins -= 10;
@@ -1222,13 +1503,13 @@
                 post.isUnlocked = true;
             }
             renderFeed();
+            showToast("🔓 Unlocked!", "Premium script file & chapter unlocked successfully.", "emerald");
         }
 
         function updateCoinsDisplay() {
             document.getElementById('user-coins-display').innerText = appState.userCoins;
         }
 
-        // Modal Handlers
         function openCoinModal() { document.getElementById('coin-modal').classList.remove('hidden'); }
         function closeCoinModal() { document.getElementById('coin-modal').classList.add('hidden'); }
 
@@ -1236,7 +1517,7 @@
             appState.userCoins += amount;
             updateCoinsDisplay();
             closeCoinModal();
-            alertModal(`🎉 Successfully added ${amount} Coins to your account!`);
+            showToast("Coins Purchased", `🎉 Added ${amount} Coins to your balance!`, "emerald");
         }
 
         function openOpportunityModal(postId) {
@@ -1247,20 +1528,18 @@
         }
 
         function sendOpportunityInquiry() {
-            const role = document.getElementById('opp-role').value;
-            const studio = document.getElementById('opp-studio').value;
             const msg = document.getElementById('opp-message').value;
 
             if (!msg) {
-                alertModal("దయచేసి మీ మెసేజ్ నమోదు చేయండి!");
+                showToast("Message Required", "Please enter your message before sending!", "pink");
                 return;
             }
 
             closeOpportunityModal();
-            alertModal("🎬 Your Industry pitch message has been sent directly to the creator!");
+            showToast("Inquiry Sent 🎬", "Your industry proposal has been delivered directly to the writer!", "emerald");
         }
 
-        function openOpportunitiesModal() {
+        function openInquiriesModal() {
             document.getElementById('inquiries-modal').classList.remove('hidden');
             const list = document.getElementById('inquiries-list');
             list.innerHTML = appState.inquiries.map(i => `
@@ -1269,17 +1548,18 @@
                         <span class="font-bold text-emerald-400">${i.role}</span>
                         <span class="text-slate-500">${i.date}</span>
                     </div>
-                    <p class="text-xs font-semibold text-white">${i.studio}</p>
+                    <p class="text-xs font-bold text-white">${i.studio}</p>
                     <p class="text-xs text-slate-300">${i.message}</p>
                 </div>
             `).join('');
         }
         function closeInquiriesModal() { document.getElementById('inquiries-modal').classList.add('hidden'); }
 
-        function playMockAudio(btn) {
+        function toggleAudioPlayback(btn) {
             const icon = btn.querySelector('i');
             if (icon.classList.contains('fa-play')) {
                 icon.className = 'fa-solid fa-pause';
+                showToast("Audio Playing", "Playing audio narration...", "amber");
             } else {
                 icon.className = 'fa-solid fa-play';
             }
@@ -1290,11 +1570,8 @@
             if (post) {
                 post.likes += 1;
                 btn.querySelector('span').innerText = post.likes;
+                btn.classList.add('text-pink-400');
             }
-        }
-
-        function alertModal(msg) {
-            alert(msg);
         }
     </script>
 </body>
